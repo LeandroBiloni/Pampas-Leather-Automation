@@ -6,4 +6,4 @@ test('is Home Page', async ({ page }) => {
     await page.goto(home.getURL());
     
     await expect(page).toHaveURL(home.getURL());
-})
+});

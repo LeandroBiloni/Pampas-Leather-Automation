@@ -5,9 +5,9 @@ import { URLAssembler } from "../helpers/URLAssembler";
 dotenv.config();
 
 /**
- * Class for Home Page
+ * Class for Clients Page
  */
-export class HomePage extends BasePage{
+export class ClientsPage extends BasePage{
 
     /**
      * Class constructor
@@ -16,7 +16,7 @@ export class HomePage extends BasePage{
     constructor(page: Page) {
         super(page);
         const baseURl = process.env.BASE_URL as string;
-        this.pageRoute = "index";
+        this.pageRoute = "customersList";
         this.pageCompleteURL = URLAssembler.getAssembledURL(baseURl, this.pageRoute);
     }
 }

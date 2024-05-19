@@ -1,14 +1,21 @@
 import { Page } from "@playwright/test";
 
+/**
+ * Base class for Pages
+ */
 export abstract class BasePage {
     protected readonly page: Page;
-    protected pageURL : string;
-
+    protected pageCompleteURL: string;
+    protected pageRoute: string;
+    /**
+     * Class constructor
+     * @param page 
+     */
     constructor(page: Page) {
         this.page = page;
     }
 
-    public getURL() : string {
-        return this.pageURL;
+    public getURL(): string {
+        return this.pageCompleteURL;
     }
 }
