@@ -14,7 +14,7 @@ test('Header "Home" button', async ({ page }) => {
     await page.goto(ordersPage.getURL());
     
     const header = new Header(page);
-    await header.goToHome();
+    await header.clickHome();
 
     //Assert
     const home = new HomePage(page);    
@@ -30,7 +30,7 @@ test('Header "Orders" button', async ({ page }) => {
     await page.goto(home.getURL());
     
     const header = new Header(page);
-    await header.goToOrders();
+    await header.clickOrders();
     
     //Assert
     const ordersPage = new OrdersPage(page);
@@ -46,7 +46,7 @@ test('Header "Clients" button', async ({ page }) => {
     await page.goto(home.getURL());
     
     const header = new Header(page);
-    await header.goToClients();
+    await header.clickClients();
     
     //Assert
     const clientsPage = new ClientsPage(page);
@@ -62,7 +62,7 @@ test('Header "Products" button', async ({ page }) => {
     await page.goto(home.getURL());
     
     const header = new Header(page);
-    await header.goToProducts();
+    await header.clickProducts();
     
     //Assert
     const productsPage = new ProductsPage(page);
