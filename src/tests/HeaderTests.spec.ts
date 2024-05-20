@@ -4,6 +4,20 @@ import { OrdersPage } from "../pages/OrdersPage";
 import { Header } from "../components/Header";
 import { ClientsPage } from "../pages/ClientsPage";
 import { ProductsPage } from "../pages/ProductsPage";
+import { allure } from "allure-playwright";
+
+test.afterEach(async ({ page }, testInfo) => {
+    if (testInfo.status === "failed") {
+
+        const testName = testInfo.title;
+        const time = new Date().toJSON();
+        const screenshotName = testName.concat(time.toString(), ".jpeg");
+
+        await allure.attachment(screenshotName, await page.screenshot(), {
+            contentType: "image/jpeg",
+        });
+    }
+});
 
 test('Header "Home" button', async ({ page }) => {
 
@@ -11,10 +25,14 @@ test('Header "Home" button', async ({ page }) => {
 
     //Act
     const ordersPage = new OrdersPage(page);
-    await page.goto(ordersPage.getURL());
-    
+    await allure.step("Step 1 - Go to Orders Page", async () => {        
+        await page.goto(ordersPage.getURL());
+    });
+
     const header = new Header(page);
-    await header.clickHome();
+    await allure.step("Step 2 - Click Home button", async () => {        
+        await header.clickHome();
+    });    
 
     //Assert
     const home = new HomePage(page);    
@@ -27,10 +45,14 @@ test('Header "Orders" button', async ({ page }) => {
 
     //Act
     const home = new HomePage(page);    
-    await page.goto(home.getURL());
+    await allure.step("Step 1 - Go to Home Page", async () => {
+        await page.goto(home.getURL());
+    }); 
     
     const header = new Header(page);
-    await header.clickOrders();
+    await allure.step("Step 2 - Click Orders button", async () => {
+        await header.clickOrders();
+    });
     
     //Assert
     const ordersPage = new OrdersPage(page);
@@ -43,10 +65,14 @@ test('Header "Clients" button', async ({ page }) => {
 
     //Act
     const home = new HomePage(page);    
-    await page.goto(home.getURL());
+    await allure.step("Step 1 - Go to Home Page", async () => {
+        await page.goto(home.getURL());       
+    });
     
     const header = new Header(page);
-    await header.clickClients();
+    await allure.step("Step 2 - Click Clients button", async () => {
+        await header.clickClients();
+    });
     
     //Assert
     const clientsPage = new ClientsPage(page);
@@ -59,10 +85,14 @@ test('Header "Products" button', async ({ page }) => {
 
     //Act
     const home = new HomePage(page);    
-    await page.goto(home.getURL());
+    await allure.step("Step 1 - Go to Home Page", async () => {
+        await page.goto(home.getURL());
+    })
     
     const header = new Header(page);
-    await header.clickProducts();
+    await allure.step("Step 2 - Click Products button", async () => {
+        await header.clickProducts();
+    })
     
     //Assert
     const productsPage = new ProductsPage(page);
