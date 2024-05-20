@@ -26,28 +26,28 @@ export class Header extends BaseComponent{
     /**
      * Go to Home
      */
-    async goToHome(): Promise<void> {
+    async clickHome(): Promise<void> {
         await this.homeButton.click();
     }
 
     /**
      * Go to Orders
      */
-    async goToOrders(): Promise<void> {
+    async clickOrders(): Promise<void> {
         await this.ordersButton.click();
     }
 
     /**
      * Go to Clients
      */
-    async goToClients(): Promise<void> {
+    async clickClients(): Promise<void> {
         await this.clientsButton.click();
     }
 
     /**
      * Go to Products
      */
-    async goToProducts(): Promise<void> {
+    async clickProducts(): Promise<void> {
         await this.productsButton.click();
     }
 }
