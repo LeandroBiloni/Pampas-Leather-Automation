@@ -1,5 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 import { testPlanFilter } from "allure-playwright/dist/testplan";
+import * as os from "os";
 
 /**
  * Read environment variables from file.
@@ -28,7 +29,14 @@ export default defineConfig({
     [
       "allure-playwright",
       {
-        
+        detail: true,
+        suiteTitle: false,
+        environmentInfo: {
+          os_platform: os.platform(),
+          os_release: os.release(),
+          os_version: os.version(),
+          node_version: process.version,
+        }
       }
     ]
   ],

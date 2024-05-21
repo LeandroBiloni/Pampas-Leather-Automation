@@ -5,17 +5,12 @@ import { Header } from "../components/Header";
 import { ClientsPage } from "../pages/ClientsPage";
 import { ProductsPage } from "../pages/ProductsPage";
 import { allure } from "allure-playwright";
+import { Screenshoter } from "../helpers/Screenshoter";
 
 test.afterEach(async ({ page }, testInfo) => {
     if (testInfo.status === "failed") {
-
-        const testName = testInfo.title;
-        const time = new Date().toJSON();
-        const screenshotName = testName.concat(time.toString(), ".jpeg");
-
-        await allure.attachment(screenshotName, await page.screenshot(), {
-            contentType: "image/jpeg",
-        });
+        const addTimeStamp = true;
+        await Screenshoter.TakeScreenshot(page, testInfo.title, addTimeStamp);
     }
 });
 
