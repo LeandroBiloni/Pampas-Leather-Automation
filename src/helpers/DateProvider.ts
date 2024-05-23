@@ -1,4 +1,11 @@
+/**
+ * Class to get Date info
+ */
 export class DateProvider{
+    /**
+     * Get the current date in local time
+     * @returns The current date in YYYY-MM-DD format
+     */
     public static getCurrentDate(): string{
         const date = new Date();
 
@@ -10,7 +17,11 @@ export class DateProvider{
         return currentDate;
     }
 
-    public static getCurrentTime(): string{
+    /**
+     * Get the current local time 
+     * @returns The current time in HH:MM:SS format
+    */
+   public static getCurrentTime(): string{
         const date = new Date();
 
         let hours = date.getHours();
@@ -22,6 +33,10 @@ export class DateProvider{
         return currentTime;
     }
 
+    /**
+     * Get the current timestamp in local time
+     * @returns The current timestamp in YYYY-MM-DD - HH:MM:SS format
+     */
     public static getTimeStamp(): string{
         let date = this.getCurrentDate();
         let time = this.getCurrentTime();

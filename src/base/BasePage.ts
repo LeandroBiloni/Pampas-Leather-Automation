@@ -18,6 +18,10 @@ export abstract class BasePage {
         this.logger = logger;
     }
 
+    /**
+     * Get this Page URL
+     * @returns The URL of this page
+     */
     public getURL(): string {
         return this.pageCompleteURL;
     }
