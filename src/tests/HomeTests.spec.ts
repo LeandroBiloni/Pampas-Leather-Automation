@@ -13,89 +13,91 @@ test.afterEach(async ({ page }, testInfo) => {
     }
 });
 
-test('Home "Orders" button', async ({ page }) => {
-    //Arrange
+test.describe('Home Page Tests', () => {
+    test('Orders button', async ({ page }) => {
+        //Arrange
 
-    //Act
-    const homePage = new HomePage(page);    
-    await allure.step("Step 1 - Navigate to Home Page", async () => {
-        await page.goto(homePage.getURL());
+        //Act
+        const homePage = new HomePage(page);    
+        await allure.step("Step 1 - Navigate to Home Page", async () => {
+            await page.goto(homePage.getURL());
+        });
+
+        await allure.step("Step 2 - Click Orders button", async () => {
+            await homePage.clickOrders();
+        });
+        
+        //Assert
+        const ordersPage = new OrdersPage(page);
+        await expect(page).toHaveURL(ordersPage.getURL());
     });
 
-    await allure.step("Step 2 - Click Orders button", async () => {
-        await homePage.clickOrders();
-    });
-    
-    //Assert
-    const ordersPage = new OrdersPage(page);
-    await expect(page).toHaveURL(ordersPage.getURL());
-});
+    test('Clients button', async ({ page }) => {
+        //Arrange
 
-test('Home "Clients" button', async ({ page }) => {
-    //Arrange
+        //Act
+        const homePage = new HomePage(page);    
+        await allure.step("Step 1 - Navigate to Home Page", async () => {
+            await page.goto(homePage.getURL());
+        });
 
-    //Act
-    const homePage = new HomePage(page);    
-    await allure.step("Step 1 - Navigate to Home Page", async () => {
-        await page.goto(homePage.getURL());
-    });
-
-    await allure.step("Step 2 - Click Clients button", async () => {
-        await homePage.clickClients();
-    });
-    
-    //Assert
-    const clientsPage = new ClientsPage(page);
-    await expect(page).toHaveURL(clientsPage.getURL());
-});
-
-test('Home "Products" button', async ({ page }) => {
-    //Arrange
-
-    //Act
-    const homePage = new HomePage(page);    
-    await allure.step("Step 1 - Navigate to Home Page", async () => {
-        await page.goto(homePage.getURL());
+        await allure.step("Step 2 - Click Clients button", async () => {
+            await homePage.clickClients();
+        });
+        
+        //Assert
+        const clientsPage = new ClientsPage(page);
+        await expect(page).toHaveURL(clientsPage.getURL());
     });
 
-    await allure.step("Step 2 - Click Products button", async () => {
-        await homePage.clickProducts();        
+    test('Products button', async ({ page }) => {
+        //Arrange
+
+        //Act
+        const homePage = new HomePage(page);    
+        await allure.step("Step 1 - Navigate to Home Page", async () => {
+            await page.goto(homePage.getURL());
+        });
+
+        await allure.step("Step 2 - Click Products button", async () => {
+            await homePage.clickProducts();        
+        });
+
+        //Assert
+        const productsPage = new ProductsPage(page);
+        await expect(page).toHaveURL(productsPage.getURL());
     });
 
-    //Assert
-    const productsPage = new ProductsPage(page);
-    await expect(page).toHaveURL(productsPage.getURL());
-});
+    test('UPS button', async ({ page }) => {
+        //Arrange
 
-test('Home "UPS" button', async ({ page }) => {
-    //Arrange
+        //Act
+        const homePage = new HomePage(page);    
+        await allure.step("Step 1 - Navigate to Home Page", async () => {
+            await page.goto(homePage.getURL());
+        });
 
-    //Act
-    const homePage = new HomePage(page);    
-    await allure.step("Step 1 - Navigate to Home Page", async () => {
-        await page.goto(homePage.getURL());
+        await allure.step("Step 2 - Click UPS button", async () => {
+            await homePage.clickUPS();        
+        });
+        //Assert
+        await expect(page).toHaveURL(homePage.getUpsURL());
     });
 
-    await allure.step("Step 2 - Click UPS button", async () => {
-        await homePage.clickUPS();        
+    test('FedEx button', async ({ page }) => {
+        //Arrange
+
+        //Act
+        const homePage = new HomePage(page);    
+        await allure.step("Step 1 - Navigate to Home Page", async () => {
+            await page.goto(homePage.getURL());
+        });
+
+        await allure.step("Step 2 - Click FedEx button", async () => {
+            await homePage.clickFedEx();        
+        });
+
+        //Assert
+        await expect(page).toHaveURL(homePage.getFedExURL());
     });
-    //Assert
-    await expect(page).toHaveURL(homePage.getUpsURL());
-});
-
-test('Home "FedEx" button', async ({ page }) => {
-    //Arrange
-
-    //Act
-    const homePage = new HomePage(page);    
-    await allure.step("Step 1 - Navigate to Home Page", async () => {
-        await page.goto(homePage.getURL());
-    });
-
-    await allure.step("Step 2 - Click FedEx button", async () => {
-        await homePage.clickFedEx();        
-    });
-
-    //Assert
-    await expect(page).toHaveURL(homePage.getFedExURL());
 });
