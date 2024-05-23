@@ -14,7 +14,7 @@ test.afterEach(async ({ page }, testInfo) => {
     }
 });
 
-test.describe('Header Tests', () => {
+test.describe('Header Tests', {tag: '@header'}, () => {
     test('Home button', async ({ page }) => {
 
         //Arrange

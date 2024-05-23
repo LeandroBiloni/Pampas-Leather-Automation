@@ -13,7 +13,7 @@ test.afterEach(async ({ page }, testInfo) => {
     }
 });
 
-test.describe('Home Page Tests', () => {
+test.describe('Home Page Tests', {tag: '@home-page'}, () => {
     test('Orders button', async ({ page }) => {
         //Arrange
 
