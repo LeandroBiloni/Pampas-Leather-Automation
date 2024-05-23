@@ -43,6 +43,8 @@ export class HomePage extends BasePage{
      * Click Orders button
      */
     async clickOrders(): Promise<void> {
+        this.logger.info("Clicking the Orders button in Home Page");
+        await this.ordersButton.waitFor({state: "attached"});
         await this.ordersButton.click();
     }
 
@@ -50,6 +52,8 @@ export class HomePage extends BasePage{
      * Click Clients button
      */
     async clickClients(): Promise<void> {
+        this.logger.info("Clicking the Clients button in Home Page");
+        await this.clientsButton.waitFor({state: "attached"});
         await this.clientsButton.click();
     }
 
@@ -57,6 +61,8 @@ export class HomePage extends BasePage{
      * Click Products button
      */
     async clickProducts(): Promise<void> {
+        this.logger.info("Clicking the Orders button in Home Page");
+        await this.productsButton.waitFor({state: "attached"});
         await this.productsButton.click();
     }
 
@@ -64,6 +70,8 @@ export class HomePage extends BasePage{
      * Click UPS button
      */
     async clickUPS(): Promise<void> {
+        this.logger.info("Clicking the UPS button in Home Page");
+        await this.upsButton.waitFor({state: "attached"});
         await this.upsButton.click();
     }
 
@@ -71,6 +79,8 @@ export class HomePage extends BasePage{
      * Click FedEx button
      */
     async clickFedEx(): Promise<void> {
+        this.logger.info("Clicking the FedEx button in Home Page");
+        await this.fedexButton.waitFor({state: "attached"});
         await this.fedexButton.click();
     }
 

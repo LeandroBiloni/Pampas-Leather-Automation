@@ -27,8 +27,8 @@ export class Header extends BaseComponent{
      * Click Home button
      */
     async clickHome(): Promise<void> {
-        this.logger.info("Clicling the header Home button");
-        await this.homeButton.waitFor({state: "visible"});
+        this.logger.info("Clicking the header Home button");
+        await this.homeButton.waitFor({state: "attached"});
         await this.homeButton.click();
     }
 
@@ -36,8 +36,8 @@ export class Header extends BaseComponent{
      * Click Orders button
      */
     async clickOrders(): Promise<void> {
-        this.logger.info("Clicling the header Orders button");
-        await this.ordersButton.waitFor({state: "visible"});
+        this.logger.info("Clicking the header Orders button");
+        await this.ordersButton.waitFor({state: "attached"});
         await this.ordersButton.click();
     }
 
@@ -45,8 +45,8 @@ export class Header extends BaseComponent{
      * Click Clients button
      */
     async clickClients(): Promise<void> {
-        this.logger.info("Clicling the header Clients button");
-        await this.clientsButton.waitFor({state: "visible"});
+        this.logger.info("Clicking the header Clients button");
+        await this.clientsButton.waitFor({state: "attached"});
         await this.clientsButton.click();
     }
 
@@ -54,8 +54,8 @@ export class Header extends BaseComponent{
      * Click Products button
      */
     async clickProducts(): Promise<void> {
-        this.logger.info("Clicling the header Products button");
-        await this.productsButton.waitFor({state: "visible"});
+        this.logger.info("Clicking the header Products button");
+        await this.productsButton.waitFor({state: "attached"});
         await this.productsButton.click();
     }
 }
