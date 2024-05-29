@@ -15,7 +15,7 @@ test.afterEach(async ({ page }, testInfo) => {
     }
 });
 
-test.describe('Products Page Tests', {tag: '@products-page'}, () => {
+test.describe('Products Page Tests', {tag: ['@products-page', '@full-regression']}, () => {
     test('Products List button', async ({ page }) => {
         //Arrange
     
