@@ -5,7 +5,7 @@ import { URLAssembler } from "../helpers/URLAssembler";
 dotenv.config();
 
 /**
- * Class for Home Page
+ * Class for Home Page.
  */
 export class HomePage extends BasePage{
 
@@ -19,14 +19,14 @@ export class HomePage extends BasePage{
     private fedExURL: string;
 
     /**
-     * Class constructor
+     * Class constructor.
      * @param page 
      */
     constructor(page: Page) {
         super(page);
         
         const baseURl = process.env.BASE_URL as string;
-        this.pageRoute = "index";
+        this.pageRoute = "";
         this.pageCompleteURL = URLAssembler.getAssembledURL(baseURl, this.pageRoute);
 
         this.ordersButton = this.page.locator("div > a[href='/OrdersList']");
@@ -40,7 +40,7 @@ export class HomePage extends BasePage{
     }
 
     /**
-     * Click Orders button
+     * Click Orders button.
      */
     async clickOrders(): Promise<void> {
         this.logger.info("Clicking the Orders button in Home Page");
@@ -49,7 +49,7 @@ export class HomePage extends BasePage{
     }
 
     /**
-     * Click Clients button
+     * Click Clients button.
      */
     async clickClients(): Promise<void> {
         this.logger.info("Clicking the Clients button in Home Page");
@@ -58,7 +58,7 @@ export class HomePage extends BasePage{
     }
 
     /**
-     * Click Products button
+     * Click Products button.
      */
     async clickProducts(): Promise<void> {
         this.logger.info("Clicking the Orders button in Home Page");
@@ -67,7 +67,7 @@ export class HomePage extends BasePage{
     }
 
     /**
-     * Click UPS button
+     * Click UPS button.
      */
     async clickUPS(): Promise<void> {
         this.logger.info("Clicking the UPS button in Home Page");
@@ -76,7 +76,7 @@ export class HomePage extends BasePage{
     }
 
     /**
-     * Click FedEx button
+     * Click FedEx button.
      */
     async clickFedEx(): Promise<void> {
         this.logger.info("Clicking the FedEx button in Home Page");
@@ -85,16 +85,16 @@ export class HomePage extends BasePage{
     }
 
     /**
-     * Get UPS site URL
-     * @returns UPS site URL
+     * Get UPS site URL.
+     * @returns UPS site URL.
      */
     public getUpsURL(): string {
         return this.upsURL;
     }
 
     /**
-     * Get FedEx site URL
-     * @returns FedEx site URL
+     * Get FedEx site URL.
+     * @returns FedEx site URL.
      */
     public getFedExURL(): string {
         return this.fedExURL;

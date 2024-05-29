@@ -2,7 +2,7 @@ import { Locator, Page } from "@playwright/test";
 import { BaseComponent } from "../base/BaseComponent";
 
 /**
- * Class for Header
+ * Class for Header.
  */
 export class Header extends BaseComponent{
     private homeButton: Locator;
@@ -11,7 +11,7 @@ export class Header extends BaseComponent{
     private productsButton: Locator;
 
     /**
-     * Class constructor
+     * Class constructor.
      * @param page 
      */
     constructor(page: Page) {
@@ -24,7 +24,7 @@ export class Header extends BaseComponent{
     }
 
     /**
-     * Click Home button
+     * Click Home button.
      */
     async clickHome(): Promise<void> {
         this.logger.info("Clicking the header Home button");
@@ -33,7 +33,7 @@ export class Header extends BaseComponent{
     }
 
     /**
-     * Click Orders button
+     * Click Orders button.
      */
     async clickOrders(): Promise<void> {
         this.logger.info("Clicking the header Orders button");
@@ -42,7 +42,7 @@ export class Header extends BaseComponent{
     }
 
     /**
-     * Click Clients button
+     * Click Clients button.
      */
     async clickClients(): Promise<void> {
         this.logger.info("Clicking the header Clients button");
@@ -51,7 +51,7 @@ export class Header extends BaseComponent{
     }
 
     /**
-     * Click Products button
+     * Click Products button.
      */
     async clickProducts(): Promise<void> {
         this.logger.info("Clicking the header Products button");

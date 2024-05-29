@@ -2,15 +2,16 @@ import { Page } from "@playwright/test";
 import { logger } from "../helpers/Logger"
 
 /**
- * Base class for Pages
+ * Base class for Pages.
  */
 export abstract class BasePage {
     protected readonly page: Page;
     protected pageCompleteURL: string;
     protected pageRoute: string;
     protected logger;
+    
     /**
-     * Class constructor
+     * Class constructor.
      * @param page 
      */
     constructor(page: Page) {
@@ -19,8 +20,8 @@ export abstract class BasePage {
     }
 
     /**
-     * Get this Page URL
-     * @returns The URL of this page
+     * Get this Page URL.
+     * @returns The URL of this page.
      */
     public getURL(): string {
         return this.pageCompleteURL;

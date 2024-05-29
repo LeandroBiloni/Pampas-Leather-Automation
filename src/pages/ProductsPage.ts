@@ -5,7 +5,7 @@ import { URLAssembler } from "../helpers/URLAssembler";
 dotenv.config();
 
 /**
- * Class for Products Page
+ * Class for Products Page.
  */
 export class ProductsPage extends BasePage{
 
@@ -13,7 +13,7 @@ export class ProductsPage extends BasePage{
     private colorsListButton: Locator;
 
     /**
-     * Class constructor
+     * Class constructor.
      * @param page 
      */
     constructor(page: Page) {
@@ -27,7 +27,7 @@ export class ProductsPage extends BasePage{
     }
 
     /**
-     * Click Products List button
+     * Click Products List button.
      */
     async clickProductsList(): Promise<void> {
         this.logger.info("Clicking the Products List button in Products Page");
@@ -36,7 +36,7 @@ export class ProductsPage extends BasePage{
     }
 
     /**
-     * Click Colors List button
+     * Click Colors List button.
      */
     async clickColorsList(): Promise<void> {
         this.logger.info("Clicking the Colors List button in Products Page");

@@ -5,12 +5,12 @@ import { URLAssembler } from "../helpers/URLAssembler";
 dotenv.config();
 
 /**
- * Class for Clients Page
+ * Class for Clients Page.
  */
 export class ClientsPage extends BasePage{
 
     /**
-     * Class constructor
+     * Class constructor.
      * @param page 
      */
     constructor(page: Page) {
