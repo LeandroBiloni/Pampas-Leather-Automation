@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 import { logger } from "../helpers/Logger"
 
 /**
@@ -19,6 +19,15 @@ export abstract class BasePage {
         this.logger = logger;
     }
 
+    /**
+     * Get a locator.
+     * @param selector The Selector to use to find a Locator.
+     * @returns The found Locator.
+     */
+    protected locator(selector: string): Locator {
+        return this.page.locator(selector);
+      }
+      
     /**
      * Get this Page URL.
      * @returns The URL of this page.
