@@ -47,9 +47,8 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
 
         await allure.step("Step 4 - Click Login button", async () => {
             await loginPage.clickLogin();
+            await page.waitForEvent('dialog');
         });
-
-        await page.waitForEvent('dialog');
 
         //Assert
         await expect(currentDialog).toBe(expectedDialog);
@@ -75,9 +74,8 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
 
         await allure.step("Step 2 - Click Login button", async () => {
             loginPage.clickLogin();
+            await page.waitForEvent('dialog');
         });
-
-        await page.waitForEvent('dialog');
 
         //Assert        
         await expect(currentDialog).toBe(expectedDialog);
@@ -105,14 +103,13 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
         });
 
         await allure.step("Step 2 - Input password", async () => {
-            loginPage.inputPassword(password);
+            await loginPage.inputPassword(password);
         });
 
         await allure.step("Step 3 - Click Login button", async () => {
-            loginPage.clickLogin();
+            await loginPage.clickLogin();
+            await page.waitForEvent('dialog');
         });
-
-        await page.waitForEvent('dialog');
 
         //Assert        
         await expect(currentDialog).toBe(expectedDialog);
@@ -139,14 +136,13 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
         });
 
         await allure.step("Step 2 - Input email", async () => {
-            loginPage.inputEmail(email);
+            await loginPage.inputEmail(email);
         });
 
         await allure.step("Step 3 - Click Login button", async () => {
-            loginPage.clickLogin();
+            await loginPage.clickLogin();
+            await page.waitForEvent('dialog');
         });
-
-        await page.waitForEvent('dialog');
 
         //Assert        
         await expect(currentDialog).toBe(expectedDialog);
@@ -175,18 +171,17 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
         });
 
         await allure.step("Step 2 - Input email", async () => {
-            loginPage.inputEmail(email);
+            await loginPage.inputEmail(email);
         });
 
         await allure.step("Step 3 - Input password", async () => {
-            loginPage.inputEmail(password);
+            await loginPage.inputEmail(password);
         });
 
         await allure.step("Step 4 - Click Login button", async () => {
-            loginPage.clickLogin();
+            await loginPage.clickLogin();
+            await page.waitForEvent('dialog');
         });
-
-        await page.waitForEvent('dialog');
 
         //Assert        
         await expect(currentDialog).toBe(expectedDialog);

@@ -23,9 +23,9 @@ export class LoginPage extends BasePage{
         this.pageRoute = "login";
         this.pageCompleteURL = URLAssembler.getAssembledURL(baseURl, this.pageRoute);
 
-        this.emailField = this.page.locator("[id='email']");
-        this.passwordField = this.page.locator("[id='password']");
-        this.loginButton = this.page.locator("[class='btn-login']");
+        this.emailField = this.locator("[id='email']");
+        this.passwordField = this.locator("[id='password']");
+        this.loginButton = this.locator("[class='btn-login']");
     }
 
     async inputEmail(email: string): Promise<void> {
@@ -49,10 +49,10 @@ export class LoginPage extends BasePage{
     async doLoginProcess(email: string, password: string): Promise<void> {
         this.logger.info("Doing Login process");
 
-        this.inputEmail(email);
+        await this.inputEmail(email);
 
-        this.inputPassword(password);
+        await this.inputPassword(password);
 
-        this.clickLogin();
+        await this.clickLogin();
     }
 }
