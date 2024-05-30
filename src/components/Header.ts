@@ -9,6 +9,7 @@ export class Header extends BaseComponent{
     private ordersButton: Locator;
     private clientsButton: Locator;
     private productsButton: Locator;
+    private logoutButton: Locator;
 
     /**
      * Class constructor.
@@ -17,10 +18,11 @@ export class Header extends BaseComponent{
     constructor(page: Page) {
         super(page);
         
-        this.homeButton = this.locator('li > [href="/index"]');
-        this.ordersButton = this.locator('li > [href="/ordersList"]')
-        this.clientsButton = this.locator('li > [href="/customersList"]')
-        this.productsButton = this.locator('li > [href="/products"]')
+        this.homeButton = this.locator('ul > li:nth-child(1)');
+        this.ordersButton = this.locator('ul > li:nth-child(2)');
+        this.clientsButton = this.locator('ul > li:nth-child(3)');
+        this.productsButton = this.locator('ul > li:nth-child(4)');
+        this.logoutButton = this.locator('ul > li:nth-child(5)');
     }
 
     /**
@@ -57,5 +59,14 @@ export class Header extends BaseComponent{
         this.logger.info("Clicking the header Products button");
         await this.productsButton.waitFor({state: "attached"});
         await this.productsButton.click();
+    }
+
+    /**
+     * Click Logout button.
+     */
+    async clickLogout(): Promise<void> {
+        this.logger.info("Clicking the header Logout button");
+        await this.logoutButton.waitFor({state: "attached"});
+        await this.logoutButton.click();
     }
 }
