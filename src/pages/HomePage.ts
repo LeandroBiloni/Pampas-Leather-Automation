@@ -29,11 +29,11 @@ export class HomePage extends BasePage{
         this.pageRoute = "";
         this.pageCompleteURL = URLAssembler.getAssembledURL(baseURl, this.pageRoute);
 
-        this.ordersButton = this.page.locator("div > a[href='/OrdersList']");
-        this.clientsButton = this.page.locator("div > a[href='/customersList']");
-        this.productsButton = this.page.locator("div > a[href='/products']");
-        this.upsButton = this.page.locator("div > [class='item item-ups']");
-        this.fedexButton = this.page.locator("div > [class='item item-fedex']");
+        this.ordersButton = this.locator("div > a[href='/ordersList']");
+        this.clientsButton = this.locator("div > a[href='/customersList']");
+        this.productsButton = this.locator("div > a[href='/products']");
+        this.upsButton = this.locator("div > [class='item item-ups']");
+        this.fedexButton = this.locator("div > [class='item item-fedex']");
 
         this.upsURL = "https://www.ups.com/ar/es/Home.page?";
         this.fedExURL = "https://www.fedex.com/es-ar/home.html";
