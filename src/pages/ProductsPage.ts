@@ -22,8 +22,8 @@ export class ProductsPage extends BasePage{
         this.pageRoute = "products";
         this.pageCompleteURL = URLAssembler.getAssembledURL(baseURl, this.pageRoute);
 
-        this.productsListButton = this.page.locator("div > a[href='/productsList']");
-        this.colorsListButton = this.page.locator("div > a[href='/colorsList']");
+        this.productsListButton = this.locator("div > a[href='/productsList']");
+        this.colorsListButton = this.locator("div > a[href='/colorsList']");
     }
 
     /**
