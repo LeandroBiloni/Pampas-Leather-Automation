@@ -7,6 +7,24 @@ import { allure } from "allure-playwright";
 import { Screenshoter } from "../helpers/Screenshoter";
 import { ProductsListPage } from "../pages/ProductsListPage";
 import { ColorsListPage } from "../pages/ColorsListPage";
+import { LoginPage } from "../pages/LoginPage";
+
+test.beforeEach(async ({ page}) => {
+    const email = process.env.CORRECT_EMAIL as string;
+    const password = process.env.CORRECT_PASSWORD as string;
+
+    page.on('dialog', async (dialog) => {
+        console.log("Login dialogue popup: " + dialog.message());
+        await dialog.accept();
+    });
+
+    const loginPage = new LoginPage(page);
+    await page.goto(loginPage.getURL());
+
+    await loginPage.doLoginProcess(email, password);    
+
+    await page.waitForEvent('dialog');
+});
 
 test.afterEach(async ({ page }, testInfo) => {
     if (testInfo.status === "failed") {

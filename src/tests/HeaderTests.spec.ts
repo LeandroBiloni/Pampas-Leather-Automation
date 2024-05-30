@@ -6,6 +6,24 @@ import { ClientsPage } from "../pages/ClientsPage";
 import { ProductsPage } from "../pages/ProductsPage";
 import { allure } from "allure-playwright";
 import { Screenshoter } from "../helpers/Screenshoter";
+import { LoginPage } from "../pages/LoginPage";
+
+test.beforeEach(async ({ page}) => {
+    const email = process.env.CORRECT_EMAIL as string;
+    const password = process.env.CORRECT_PASSWORD as string;
+
+    page.once('dialog', async (dialog) => {
+        console.log("Login dialogue popup: " + dialog.message());
+        await dialog.accept();
+    });
+
+    const loginPage = new LoginPage(page);
+    await page.goto(loginPage.getURL());
+
+    await loginPage.doLoginProcess(email, password);
+
+    await page.waitForEvent('dialog');
+});
 
 test.afterEach(async ({ page }, testInfo) => {
     if (testInfo.status === "failed") {
@@ -39,14 +57,9 @@ test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
 
         //Arrange
 
-        //Act
-        const home = new HomePage(page);    
-        await allure.step("Step 1 - Go to Home Page", async () => {
-            await page.goto(home.getURL());
-        }); 
-        
+        //Act        
         const header = new Header(page);
-        await allure.step("Step 2 - Click Orders button", async () => {
+        await allure.step("Step 1 - Click Orders button", async () => {
             await header.clickOrders();
         });
         
@@ -59,14 +72,9 @@ test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
 
         //Arrange
 
-        //Act
-        const home = new HomePage(page);    
-        await allure.step("Step 1 - Go to Home Page", async () => {
-            await page.goto(home.getURL());       
-        });
-        
+        //Act        
         const header = new Header(page);
-        await allure.step("Step 2 - Click Clients button", async () => {
+        await allure.step("Step 1 - Click Clients button", async () => {
             await header.clickClients();
         });
         
@@ -79,19 +87,34 @@ test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
 
         //Arrange
 
-        //Act
-        const home = new HomePage(page);    
-        await allure.step("Step 1 - Go to Home Page", async () => {
-            await page.goto(home.getURL());
-        })
-        
+        //Act        
         const header = new Header(page);
-        await allure.step("Step 2 - Click Products button", async () => {
+        await allure.step("Step 1 - Click Products button", async () => {
             await header.clickProducts();
-        })
+        });
         
         //Assert
         const productsPage = new ProductsPage(page);
         await expect(page).toHaveURL(productsPage.getURL());
+    });
+
+    test('Logout button', async ({ page }) => {
+
+        //Arrange
+        page.on('dialog', async (dialog) => {
+            console.log("Logout popup");
+            console.log(dialog.message());
+            await dialog.accept();
+        });
+
+        //Act        
+        const header = new Header(page);
+        await allure.step("Step 1 - Click Logout button", async () => {
+            await header.clickLogout();
+        });
+        
+        //Assert
+        const loginPage = new LoginPage(page);
+        await expect(page).toHaveURL(loginPage.getURL());
     });
 });
