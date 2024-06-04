@@ -7,22 +7,13 @@ import { ProductsPage } from "../pages/ProductsPage";
 import { allure } from "allure-playwright";
 import { Screenshoter } from "../helpers/Screenshoter";
 import { LoginPage } from "../pages/LoginPage";
+import { LoginHelper } from "../helpers/LoginHelper";
 
 test.beforeEach(async ({ page}) => {
+    
     const email = process.env.CORRECT_EMAIL as string;
     const password = process.env.CORRECT_PASSWORD as string;
-
-    page.once('dialog', async (dialog) => {
-        console.log("Login dialogue popup: " + dialog.message());
-        await dialog.accept();
-    });
-
-    const loginPage = new LoginPage(page);
-    await page.goto(loginPage.getURL());
-
-    await loginPage.doLoginProcess(email, password);
-
-    await page.waitForEvent('dialog');
+    await LoginHelper.doLogin(email, password, page);
 });
 
 test.afterEach(async ({ page }, testInfo) => {
@@ -34,6 +25,7 @@ test.afterEach(async ({ page }, testInfo) => {
 
 test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
     test('Home button', async ({ page }) => {
+        await allure.tags("Header", "Full Regression");
 
         //Arrange
 
@@ -54,7 +46,7 @@ test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
     });
 
     test('Orders button', async ({ page }) => {
-
+        await allure.tags("Header", "Full Regression");
         //Arrange
 
         //Act        
@@ -69,7 +61,7 @@ test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
     });
 
     test('Clients button', async ({ page }) => {
-
+        await allure.tags("Header", "Full Regression");
         //Arrange
 
         //Act        
@@ -84,7 +76,7 @@ test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
     });
 
     test('Products button', async ({ page }) => {
-
+        await allure.tags("Header", "Full Regression");
         //Arrange
 
         //Act        
@@ -99,7 +91,7 @@ test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
     });
 
     test('Logout button', async ({ page }) => {
-
+        await allure.tags("Header", "Full Regression");
         //Arrange
         page.on('dialog', async (dialog) => {
             console.log("Logout popup");

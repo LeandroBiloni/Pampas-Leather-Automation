@@ -8,22 +8,12 @@ import { Screenshoter } from "../helpers/Screenshoter";
 import { ProductsListPage } from "../pages/ProductsListPage";
 import { ColorsListPage } from "../pages/ColorsListPage";
 import { LoginPage } from "../pages/LoginPage";
+import { LoginHelper } from "../helpers/LoginHelper";
 
 test.beforeEach(async ({ page}) => {
     const email = process.env.CORRECT_EMAIL as string;
     const password = process.env.CORRECT_PASSWORD as string;
-
-    page.on('dialog', async (dialog) => {
-        console.log("Login dialogue popup: " + dialog.message());
-        await dialog.accept();
-    });
-
-    const loginPage = new LoginPage(page);
-    await page.goto(loginPage.getURL());
-
-    await loginPage.doLoginProcess(email, password);    
-
-    await page.waitForEvent('dialog');
+    await LoginHelper.doLogin(email, password, page);
 });
 
 test.afterEach(async ({ page }, testInfo) => {
@@ -35,6 +25,7 @@ test.afterEach(async ({ page }, testInfo) => {
 
 test.describe('Products Page Tests', {tag: ['@products-page', '@full-regression']}, () => {
     test('Products List button', async ({ page }) => {
+        await allure.tags("Products Page", "Full Regression");
         //Arrange
     
         //Act
@@ -58,6 +49,7 @@ test.describe('Products Page Tests', {tag: ['@products-page', '@full-regression'
     });
     
     test('Colors List button', async ({ page }) => {
+        await allure.tags("Products Page", "Full Regression");
         //Arrange
     
         //Act

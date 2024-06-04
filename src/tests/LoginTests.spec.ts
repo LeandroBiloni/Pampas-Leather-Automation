@@ -1,9 +1,4 @@
 import test, { expect } from "@playwright/test";
-import { HomePage } from "../pages/HomePage";
-import { OrdersPage } from "../pages/OrdersPage";
-import { Header } from "../components/Header";
-import { ClientsPage } from "../pages/ClientsPage";
-import { ProductsPage } from "../pages/ProductsPage";
 import { allure } from "allure-playwright";
 import { Screenshoter } from "../helpers/Screenshoter";
 import { LoginPage } from "../pages/LoginPage";
@@ -17,6 +12,7 @@ test.afterEach(async ({ page }, testInfo) => {
 
 test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@smoke']}, () => {
     test('Correct Login', async ({ page }) => {
+        await allure.tags("Login Page", "Full Regression", "Smoke");
         
         //Arrange
         const email = process.env.CORRECT_EMAIL as string;
@@ -55,6 +51,7 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
     });
 
     test('Wrong Login - Empty fields', async ({ page }) => {
+        await allure.tags("Login Page", "Full Regression", "Smoke");
         
         //Arrange
         const expectedDialog = "noup";
@@ -82,6 +79,7 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
     });
 
     test('Wrong Login - Empty email', async ({ page }) => {
+        await allure.tags("Login Page", "Full Regression", "Smoke");
         
         //Arrange
         const password = "asd";
@@ -116,6 +114,7 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
     });
 
     test('Wrong Login - Empty password', async ({ page }) => {
+        await allure.tags("Login Page", "Full Regression", "Smoke");
         
         //Arrange
         const email = "asd@asd";
@@ -149,6 +148,7 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
     });
 
     test('Wrong Login - Wrong credentials', async ({ page }) => {
+        await allure.tags("Login Page", "Full Regression", "Smoke");
         
         //Arrange
         const email = "asd@asd";
