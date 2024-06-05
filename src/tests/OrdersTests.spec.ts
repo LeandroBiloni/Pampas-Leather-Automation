@@ -1,17 +1,12 @@
 import test, { expect } from "@playwright/test";
-import { HomePage } from "../pages/HomePage";
-import { OrdersPage } from "../pages/OrdersPage";
-import { Header } from "../components/Header";
-import { ClientsPage } from "../pages/ClientsPage";
-import { ProductsPage } from "../pages/ProductsPage";
 import { allure } from "allure-playwright";
-import { Screenshoter } from "../helpers/Screenshoter";
-import { LoginPage } from "../pages/LoginPage";
-import { LoginHelper } from "../helpers/LoginHelper";
-import { OrdersItemList } from "../components/orders/OrdersItemList";
 import { OrderItem } from "../components/orders/OrderItem";
-import { FilterByStateData } from "../data/tests data/FilterByStateData";
+import { OrdersItemList } from "../components/orders/OrdersItemList";
 import { FilterBySearchData } from "../data/tests data/FilterBySearchData";
+import { FilterByStateData } from "../data/tests data/FilterByStateData";
+import { LoginHelper } from "../helpers/LoginHelper";
+import { Screenshoter } from "../helpers/Screenshoter";
+import { OrdersPage } from "../pages/OrdersPage";
 
 test.beforeEach(async ({ page}) => {
     const email = process.env.CORRECT_EMAIL as string;

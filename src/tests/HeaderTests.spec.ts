@@ -1,13 +1,13 @@
 import test, { expect } from "@playwright/test";
-import { HomePage } from "../pages/HomePage";
-import { OrdersPage } from "../pages/OrdersPage";
-import { Header } from "../components/Header";
-import { ClientsPage } from "../pages/ClientsPage";
-import { ProductsPage } from "../pages/ProductsPage";
 import { allure } from "allure-playwright";
-import { Screenshoter } from "../helpers/Screenshoter";
-import { LoginPage } from "../pages/LoginPage";
+import { Header } from "../components/Header";
 import { LoginHelper } from "../helpers/LoginHelper";
+import { Screenshoter } from "../helpers/Screenshoter";
+import { ClientsPage } from "../pages/ClientsPage";
+import { HomePage } from "../pages/HomePage";
+import { LoginPage } from "../pages/LoginPage";
+import { OrdersPage } from "../pages/OrdersPage";
+import { ProductsPage } from "../pages/ProductsPage";
 
 test.beforeEach(async ({ page}) => {
     
