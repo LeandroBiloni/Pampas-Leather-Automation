@@ -81,6 +81,32 @@ export class OrderItem extends BaseComponent {
     }
 
     /**
+     * Get the item value that corresponds to the given key.
+     * @param key The key to filter the value.
+     * @returns The corresponding value.
+     */
+    async getValue(key: string): Promise<string> {
+        switch (key) {
+            case "State":
+                return await this.getState();
+        
+            case "OT#":
+                return await this.getOTIdentifier();
+
+            case "Customer":
+                return await this.getClientName();            
+
+            case "PO#":
+                return await this.getPOIdentifier();
+
+            case "Deadline":
+                return await this.getDeadline();
+            default:
+                return "";
+        }
+    }
+
+    /**
      * Get the Products List container.
      * @returns The container of the Products List.
      */

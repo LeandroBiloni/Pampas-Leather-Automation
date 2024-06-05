@@ -28,7 +28,7 @@ export class OrdersPage extends BasePage{
         this.sortOrder = this.locator("[id='sort']");
         this.filterBy = this.locator("[id='firstSelect']");
         this.filterState = this.locator("[name='state']");
-        this.filterSearchField = this.locator("[class='filter-container']");
+        this.filterSearchField = this.locator("[class='filter-container'] > input");
 
         this.ordersListContainer = this.locator("[class='list-container']");
     }
@@ -38,7 +38,7 @@ export class OrdersPage extends BasePage{
      */
     async selectOrderOption(option: string): Promise<void> {
         this.logger.info(`Selecting the Order by option "${option}" in Orders Page`);
-        await this.sortOrder.waitFor({state: "attached"});
+        await this.sortOrder.waitFor({ state: "attached" });
         await this.sortOrder.selectOption(option);
     }
 
@@ -47,7 +47,7 @@ export class OrdersPage extends BasePage{
      */
     async selectFilterOption(option: string): Promise<void> {
         this.logger.info(`Selecting the Filter by option "${option}" in Orders Page`);
-        await this.filterBy.waitFor({state: "attached"});
+        await this.filterBy.waitFor({ state: "attached" });
         await this.filterBy.selectOption(option);
     }
 
@@ -56,8 +56,18 @@ export class OrdersPage extends BasePage{
      */
     async selectFilterStateOption(state: string): Promise<void> {
         this.logger.info(`Selecting the Filter State option "${state}" in Orders Page`);
-        await this.filterState.waitFor({state: "attached"});
+        await this.filterState.waitFor({ state: "attached" });
         await this.filterState.selectOption(state);
+    }
+
+    /**
+     * Write the given text into the search field.
+     * @param text The text to write.
+     */
+    async inputSearchFieldText(text: string): Promise<void> {
+        this.logger.info(`Writing the Filter text "${text}" in Orders Page`);
+        await this.filterSearchField.waitFor({ state: "attached" });
+        await this.filterSearchField.fill(text);
     }
 
     /**
@@ -100,6 +110,21 @@ export class OrdersPage extends BasePage{
             return await this.filterState.isVisible();
         } catch (error) {
             this.logger.info(`Error checking the visibility of the selector: ${error}`);
+            return false;
+        }        
+    }
+
+    /**
+     * Check that the Filter Search field is visible.
+     * @returns True if visible, false otherwise.
+     */
+    async isFilterSearchFieldVisible(): Promise<boolean> {
+        try {
+            this.logger.info('Checking if Filter Search field is visible');
+            await this.filterSearchField.waitFor({ state: 'attached'});
+            return await this.filterSearchField.isVisible();
+        } catch (error) {
+            this.logger.info(`Error checking the visibility of the field: ${error}`);
             return false;
         }        
     }
