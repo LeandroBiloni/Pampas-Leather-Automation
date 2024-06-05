@@ -81,7 +81,9 @@ test.describe('Home Page Tests', {tag: ['@home-page', '@full-regression']}, () =
 
     test('UPS button', async ({ page }) => {
         await allure.tags("Home Page", "Full Regression");
+
         //Arrange
+        const pagePromise = page.context().waitForEvent('page');
 
         //Act
         const homePage = new HomePage(page);    
@@ -92,13 +94,17 @@ test.describe('Home Page Tests', {tag: ['@home-page', '@full-regression']}, () =
         await allure.step("Step 2 - Click UPS button", async () => {
             await homePage.clickUPS();        
         });
+
         //Assert
-        await expect(page).toHaveURL(homePage.getUpsURL());
+        const newPage = await pagePromise;
+        await expect(newPage).toHaveURL(homePage.getUpsURL());
     });
 
     test('FedEx button', async ({ page }) => {
         await allure.tags("Home Page", "Full Regression");
+
         //Arrange
+        const pagePromise = page.context().waitForEvent('page');
 
         //Act
         const homePage = new HomePage(page);    
@@ -111,6 +117,7 @@ test.describe('Home Page Tests', {tag: ['@home-page', '@full-regression']}, () =
         });
 
         //Assert
-        await expect(page).toHaveURL(homePage.getFedExURL());
+        const newPage = await pagePromise;
+        await expect(newPage).toHaveURL(homePage.getFedExURL());
     });
 });
