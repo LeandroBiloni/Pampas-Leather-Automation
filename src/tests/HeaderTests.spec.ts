@@ -25,6 +25,7 @@ test.afterEach(async ({ page }, testInfo) => {
 
 test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
     test('Home button', async ({ page }) => {
+        await allure.description("Test that 'Home' button in Header works. Before this test starts it already logged in.");
         await allure.tags("Header", "Full Regression");
 
         //Arrange
@@ -46,6 +47,7 @@ test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
     });
 
     test('Orders button', async ({ page }) => {
+        await allure.description("Test that 'Orders' button in Header works. Before this test starts it already logged in.");
         await allure.tags("Header", "Full Regression");
         //Arrange
 
@@ -61,6 +63,7 @@ test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
     });
 
     test('Clients button', async ({ page }) => {
+        await allure.description("Test that 'Clients' button in Header works. Before this test starts it already logged in.");
         await allure.tags("Header", "Full Regression");
         //Arrange
 
@@ -76,6 +79,7 @@ test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
     });
 
     test('Products button', async ({ page }) => {
+        await allure.description("Test that 'Products' button in Header works. Before this test starts it already logged in.");
         await allure.tags("Header", "Full Regression");
         //Arrange
 
@@ -91,7 +95,9 @@ test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
     });
 
     test('Logout button', async ({ page }) => {
+        await allure.description("Test that 'Logout' button in Header works. Before this test starts it already logged in.");
         await allure.tags("Header", "Full Regression");
+
         //Arrange
         page.on('dialog', async (dialog) => {
             console.log("Logout popup");

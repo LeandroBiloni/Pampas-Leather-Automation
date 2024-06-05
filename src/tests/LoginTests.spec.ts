@@ -12,6 +12,7 @@ test.afterEach(async ({ page }, testInfo) => {
 
 test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@smoke']}, () => {
     test('Correct Login', async ({ page }) => {
+        await allure.description("Test of 'Login' functionality. This test attempts to do the login procedure with valid credentials.");
         await allure.tags("Login Page", "Full Regression", "Smoke");
         
         //Arrange
@@ -51,6 +52,7 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
     });
 
     test('Wrong Login - Empty fields', async ({ page }) => {
+        await allure.description("Test of 'Login' functionality. This test attempts to do the login procedure leaving the email and password fields empty. It will fail if the login is performed correctly.");
         await allure.tags("Login Page", "Full Regression", "Smoke");
         
         //Arrange
@@ -79,6 +81,7 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
     });
 
     test('Wrong Login - Empty email', async ({ page }) => {
+        await allure.description("Test of 'Login' functionality. This test attempts to do the login procedure leaving the email field empty. It will fail if the login is performed correctly.");
         await allure.tags("Login Page", "Full Regression", "Smoke");
         
         //Arrange
@@ -114,6 +117,7 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
     });
 
     test('Wrong Login - Empty password', async ({ page }) => {
+        await allure.description("Test of 'Login' functionality. This test attempts to do the login procedure leaving the password field empty. It will fail if the login is performed correctly.");
         await allure.tags("Login Page", "Full Regression", "Smoke");
         
         //Arrange
@@ -148,6 +152,7 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
     });
 
     test('Wrong Login - Wrong credentials', async ({ page }) => {
+        await allure.description("Test of 'Login' functionality. This test attempts to do the login procedure using invalid credentials. It will fail if the login is performed correctly.");
         await allure.tags("Login Page", "Full Regression", "Smoke");
         
         //Arrange

@@ -31,6 +31,7 @@ test.afterEach(async ({ page }, testInfo) => {
 
 test.describe('Orders Page Tests - Order by', {tag: ['@orders-page', '@full-regression']}, () => {
     test('Order by Newest', async ({ page }) => {
+        await allure.description("Test that 'Order by Newest' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.");
         await allure.tags("Orders Page", "Full Regression");
 
         //Arrange
@@ -59,6 +60,7 @@ test.describe('Orders Page Tests - Order by', {tag: ['@orders-page', '@full-regr
 
     test('Order by Oldest', async ({ page }) => {
         await allure.tags("Orders Page", "Full Regression");
+        await allure.description("Test that 'Order by Oldest' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.");
         //Arrange
         const orderOption = "ot-asc";
         const expectedOrderNumber = "4009"
@@ -100,6 +102,7 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
         const data = filterByStateData[index];
 
         test(`Filter by State - ${data.expectedOrderState}`, async ({ page }) => {
+            await allure.description(`Test that 'Filter by State - ${data.expectedOrderState}' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
             await allure.tags("Orders Page", "Full Regression");
             await allure.parameter("State Option", data.stateOption);
 
@@ -148,6 +151,7 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
         const data = filterBySearch[index];
         
         test(`Filter by ${data.filterName}`, async ({ page }) => {
+            await allure.description(`Test that 'Filter by ${data.filterName}' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
             await allure.tags("Orders Page", "Full Regression");
 
             //Arrange 1

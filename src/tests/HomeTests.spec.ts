@@ -12,6 +12,9 @@ test.beforeEach(async ({ page}) => {
     const email = process.env.CORRECT_EMAIL as string;
     const password = process.env.CORRECT_PASSWORD as string;
     await LoginHelper.doLogin(email, password, page);
+
+    const homePage = new HomePage(page);    
+    await page.goto(homePage.getURL());
 });
 
 test.afterEach(async ({ page }, testInfo) => {
@@ -23,15 +26,12 @@ test.afterEach(async ({ page }, testInfo) => {
 
 test.describe('Home Page Tests', {tag: ['@home-page', '@full-regression']}, () => {
     test('Orders button', async ({ page }) => {
+        await allure.description("Test that 'Orders' button in Home Page works. Before this test starts it already logged in and navigated to Home Page");
         await allure.tags("Home Page", "Full Regression");
         //Arrange
 
         //Act
         const homePage = new HomePage(page);    
-        await allure.step("Step 1 - Navigate to Home Page", async () => {
-            await page.goto(homePage.getURL());
-        });
-
         await allure.step("Step 2 - Click Orders button", async () => {
             await homePage.clickOrders();
         });
@@ -42,14 +42,12 @@ test.describe('Home Page Tests', {tag: ['@home-page', '@full-regression']}, () =
     });
 
     test('Clients button', async ({ page }) => {
+        await allure.description("Test that 'Clients' button in Home Page works. Before this test starts it already logged in and navigated to Home Page");
         await allure.tags("Home Page", "Full Regression");
         //Arrange
 
         //Act
         const homePage = new HomePage(page);    
-        await allure.step("Step 1 - Navigate to Home Page", async () => {
-            await page.goto(homePage.getURL());
-        });
 
         await allure.step("Step 2 - Click Clients button", async () => {
             await homePage.clickClients();
@@ -61,14 +59,12 @@ test.describe('Home Page Tests', {tag: ['@home-page', '@full-regression']}, () =
     });
 
     test('Products button', async ({ page }) => {
+        await allure.description("Test that 'Products' button in Home Page works. Before this test starts it already logged in and navigated to Home Page");
         await allure.tags("Home Page", "Full Regression");
         //Arrange
 
         //Act
         const homePage = new HomePage(page);    
-        await allure.step("Step 1 - Navigate to Home Page", async () => {
-            await page.goto(homePage.getURL());
-        });
 
         await allure.step("Step 2 - Click Products button", async () => {
             await homePage.clickProducts();        
@@ -80,6 +76,7 @@ test.describe('Home Page Tests', {tag: ['@home-page', '@full-regression']}, () =
     });
 
     test('UPS button', async ({ page }) => {
+        await allure.description("Test that 'UPS' button in Home Page works. Before this test starts it already logged in and navigated to Home Page");
         await allure.tags("Home Page", "Full Regression");
 
         //Arrange
@@ -87,9 +84,6 @@ test.describe('Home Page Tests', {tag: ['@home-page', '@full-regression']}, () =
 
         //Act
         const homePage = new HomePage(page);    
-        await allure.step("Step 1 - Navigate to Home Page", async () => {
-            await page.goto(homePage.getURL());
-        });
 
         await allure.step("Step 2 - Click UPS button", async () => {
             await homePage.clickUPS();        
@@ -101,6 +95,7 @@ test.describe('Home Page Tests', {tag: ['@home-page', '@full-regression']}, () =
     });
 
     test('FedEx button', async ({ page }) => {
+        await allure.description("Test that 'FedEx' button in Home Page works. Before this test starts it already logged in and navigated to Home Page");
         await allure.tags("Home Page", "Full Regression");
 
         //Arrange
@@ -108,9 +103,6 @@ test.describe('Home Page Tests', {tag: ['@home-page', '@full-regression']}, () =
 
         //Act
         const homePage = new HomePage(page);    
-        await allure.step("Step 1 - Navigate to Home Page", async () => {
-            await page.goto(homePage.getURL());
-        });
 
         await allure.step("Step 2 - Click FedEx button", async () => {
             await homePage.clickFedEx();        
