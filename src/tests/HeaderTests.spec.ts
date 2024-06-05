@@ -43,7 +43,11 @@ test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
 
         //Assert
         const home = new HomePage(page);    
-        await expect(page).toHaveURL(home.getURL());
+
+        await allure.step("Check that the expected page loaded", async () => {
+            await expect(page).toHaveURL(home.getURL());
+        });
+        
     });
 
     test('Orders button', async ({ page }) => {
@@ -59,7 +63,10 @@ test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
         
         //Assert
         const ordersPage = new OrdersPage(page);
-        await expect(page).toHaveURL(ordersPage.getURL());
+
+        await allure.step("Check that the expected page loaded", async () => {
+            await expect(page).toHaveURL(ordersPage.getURL());
+        });
     });
 
     test('Clients button', async ({ page }) => {
@@ -75,7 +82,10 @@ test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
         
         //Assert
         const clientsPage = new ClientsPage(page);
-        await expect(page).toHaveURL(clientsPage.getURL());
+
+        await allure.step("Check that the expected page loaded", async () => {
+            await expect(page).toHaveURL(clientsPage.getURL());
+        });
     });
 
     test('Products button', async ({ page }) => {
@@ -91,7 +101,10 @@ test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
         
         //Assert
         const productsPage = new ProductsPage(page);
-        await expect(page).toHaveURL(productsPage.getURL());
+
+        await allure.step("Check that the expected page loaded", async () => {
+            await expect(page).toHaveURL(productsPage.getURL());
+        });
     });
 
     test('Logout button', async ({ page }) => {
@@ -107,12 +120,16 @@ test.describe('Header Tests', {tag: ['@header', '@full-regression']}, () => {
 
         //Act        
         const header = new Header(page);
+
         await allure.step("Step 1 - Click Logout button", async () => {
             await header.clickLogout();
         });
         
         //Assert
         const loginPage = new LoginPage(page);
-        await expect(page).toHaveURL(loginPage.getURL());
+
+        await allure.step("Check that the expected page loaded", async () => {
+            await expect(page).toHaveURL(loginPage.getURL());
+        });
     });
 });

@@ -47,7 +47,9 @@ test.describe('Orders Page Tests - Order by', {tag: ['@orders-page', '@full-regr
 
         //Assert 1 - Check that Order option is selected
         const sortOrderLocator = ordersPage.getSortOrderLocator();
-        await expect(sortOrderLocator).toHaveValue(orderOption);
+        await allure.step("Check that Order order is selected", async () => {
+            await expect(sortOrderLocator).toHaveValue(orderOption);
+        });
 
         //Arrange 2 - Get the first listed order
         const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
@@ -55,7 +57,9 @@ test.describe('Orders Page Tests - Order by', {tag: ['@orders-page', '@full-regr
         const orderNumber = await orderItem.getOTIdentifier();
 
         //Assert 2 - Check that Orders are ordered
-        await expect(orderNumber).toBe(expectedOrderNumber);
+        await allure.step("Check that filtered order is correct", async () => {
+            await expect(orderNumber).toBe(expectedOrderNumber);
+        });
     });
 
     test('Order by Oldest', async ({ page }) => {
@@ -74,7 +78,9 @@ test.describe('Orders Page Tests - Order by', {tag: ['@orders-page', '@full-regr
 
         //Assert 1 - Check that Order option is selected
         const sortOrderLocator = ordersPage.getSortOrderLocator();
-        await expect(sortOrderLocator).toHaveValue(orderOption);
+        await allure.step("Check that Order order is selected", async () => {
+            await expect(sortOrderLocator).toHaveValue(orderOption);
+        });
 
         //Arrange 2 - Get the first listed order
         const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
@@ -82,7 +88,9 @@ test.describe('Orders Page Tests - Order by', {tag: ['@orders-page', '@full-regr
         const orderNumber = await orderItem.getOTIdentifier();
 
         //Assert 2 - Check that Orders are ordered
-        await expect(orderNumber).toBe(expectedOrderNumber);
+        await allure.step("Check that filtered order is correct", async () => {
+            await expect(orderNumber).toBe(expectedOrderNumber);
+        });
     });
 });
 
@@ -118,8 +126,10 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
     
             //Assert 1 - Check that Filter option is selected and State selector is visible
             const filterByLocator = ordersPage.getFilterByLocator();
-            await expect(filterByLocator).toHaveValue(filterOption);
-            await expect(ordersPage.isStateSelectorVisible()).toBeTruthy();
+            await allure.step("Check that Filter option is selected and State selector is visible", async () => {
+                await expect(filterByLocator).toHaveValue(filterOption);
+                await expect(ordersPage.isStateSelectorVisible()).toBeTruthy();
+            });
     
             //Act 2 - Select State option
             await allure.step("Step 2 - Select the State to filter", async () => {        
@@ -128,7 +138,9 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
     
             //Assert 2 - Check that the State option is selected
             const filterStateLocator = ordersPage.getFilterStateLocator();
-            await expect(filterStateLocator).toHaveValue(data.stateOption);
+            await allure.step("Check that the correct State option is selected", async () => {
+                await expect(filterStateLocator).toHaveValue(data.stateOption);
+            });
     
             //Arrange 2 - Get the filtered items
             const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
@@ -136,7 +148,9 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
             const orderState = await orderItem.getState();
     
             //Assert 3 - Check that Orders are filtered
-            await expect(orderState).toBe(data.expectedOrderState);
+            await allure.step("Check that filtered order is correct", async () => {
+                await expect(orderState).toBe(data.expectedOrderState);
+            });
         });
     };    
 
@@ -166,8 +180,11 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
     
             //Assert 1 - Check that Filter option is selected and Search field is visible
             const filterByLocator = ordersPage.getFilterByLocator();
-            await expect(filterByLocator).toHaveValue(filterOption);
-            await expect(ordersPage.isFilterSearchFieldVisible()).toBeTruthy();
+
+            await allure.step("Check that Filter option is selected and Search field is visible", async () => {
+                await expect(filterByLocator).toHaveValue(filterOption);
+                await expect(ordersPage.isFilterSearchFieldVisible()).toBeTruthy();
+            });
     
             //Act 2 - Input the filter text
             await allure.step("Step 2 - Input the filter text", async () => {        
@@ -180,7 +197,9 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
             const orderValue = await orderItem.getValue(data.filterName);
     
             //Assert 3 - Check that Orders are filtered
-            await expect(orderValue).toBe(data.filterText);
+            await allure.step("Check that filtered order is correct", async () => {
+                await expect(orderValue).toBe(data.filterText);
+            });
         });
     }
 });

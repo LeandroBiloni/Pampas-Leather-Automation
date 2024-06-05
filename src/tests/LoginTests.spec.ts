@@ -48,7 +48,9 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
         });
 
         //Assert
-        await expect(currentDialog).toBe(expectedDialog);
+        await allure.step("Check that the Success message appears", async () => {
+            await expect(currentDialog).toBe(expectedDialog);
+        });
     });
 
     test('Wrong Login - Empty fields', async ({ page }) => {
@@ -77,7 +79,9 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
         });
 
         //Assert        
-        await expect(currentDialog).toBe(expectedDialog);
+        await allure.step("Check that the Failure message appears", async () => {
+            await expect(currentDialog).toBe(expectedDialog);
+        });
     });
 
     test('Wrong Login - Empty email', async ({ page }) => {
@@ -113,7 +117,9 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
         });
 
         //Assert        
-        await expect(currentDialog).toBe(expectedDialog);
+        await allure.step("Check that the Failure message appears", async () => {
+            await expect(currentDialog).toBe(expectedDialog);
+        });
     });
 
     test('Wrong Login - Empty password', async ({ page }) => {
@@ -148,7 +154,9 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
         });
 
         //Assert        
-        await expect(currentDialog).toBe(expectedDialog);
+        await allure.step("Check that the Failure message appears", async () => {
+            await expect(currentDialog).toBe(expectedDialog);
+        });
     });
 
     test('Wrong Login - Wrong credentials', async ({ page }) => {
@@ -189,6 +197,8 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
         });
 
         //Assert        
-        await expect(currentDialog).toBe(expectedDialog);
+        await allure.step("Check that the Failure message appears", async () => {
+            await expect(currentDialog).toBe(expectedDialog);
+        });
     });
 });

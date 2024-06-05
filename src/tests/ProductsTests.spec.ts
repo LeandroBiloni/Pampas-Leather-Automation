@@ -45,7 +45,9 @@ test.describe('Products Page Tests', {tag: ['@products-page', '@full-regression'
         
         //Assert
         const productsListPage = new ProductsListPage(page);
-        await expect(page).toHaveURL(productsListPage.getURL());
+        await allure.step("Check that the expected page loaded", async () => {
+            await expect(page).toHaveURL(productsListPage.getURL());
+        });
     });
     
     test('Colors List button', async ({ page }) => {
@@ -67,6 +69,8 @@ test.describe('Products Page Tests', {tag: ['@products-page', '@full-regression'
         
         //Assert
         const colorsListPage = new ColorsListPage(page);
-        await expect(page).toHaveURL(colorsListPage.getURL());
+        await allure.step("Check that the expected page loaded", async () => {
+            await expect(page).toHaveURL(colorsListPage.getURL());
+        });
     });
 });

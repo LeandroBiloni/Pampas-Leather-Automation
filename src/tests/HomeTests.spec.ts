@@ -32,13 +32,16 @@ test.describe('Home Page Tests', {tag: ['@home-page', '@full-regression']}, () =
 
         //Act
         const homePage = new HomePage(page);    
-        await allure.step("Step 2 - Click Orders button", async () => {
+        await allure.step("Step 1 - Click Orders button", async () => {
             await homePage.clickOrders();
         });
         
         //Assert
         const ordersPage = new OrdersPage(page);
-        await expect(page).toHaveURL(ordersPage.getURL());
+
+        await allure.step("Check that the expected page loaded", async () => {
+            await expect(page).toHaveURL(ordersPage.getURL());
+        });
     });
 
     test('Clients button', async ({ page }) => {
@@ -49,13 +52,16 @@ test.describe('Home Page Tests', {tag: ['@home-page', '@full-regression']}, () =
         //Act
         const homePage = new HomePage(page);    
 
-        await allure.step("Step 2 - Click Clients button", async () => {
+        await allure.step("Step 1 - Click Clients button", async () => {
             await homePage.clickClients();
         });
         
         //Assert
         const clientsPage = new ClientsPage(page);
-        await expect(page).toHaveURL(clientsPage.getURL());
+
+        await allure.step("Check that the expected page loaded", async () => {
+            await expect(page).toHaveURL(clientsPage.getURL());
+        });
     });
 
     test('Products button', async ({ page }) => {
@@ -66,13 +72,16 @@ test.describe('Home Page Tests', {tag: ['@home-page', '@full-regression']}, () =
         //Act
         const homePage = new HomePage(page);    
 
-        await allure.step("Step 2 - Click Products button", async () => {
+        await allure.step("Step 1 - Click Products button", async () => {
             await homePage.clickProducts();        
         });
 
         //Assert
         const productsPage = new ProductsPage(page);
-        await expect(page).toHaveURL(productsPage.getURL());
+
+        await allure.step("Check that the expected page loaded", async () => {
+            await expect(page).toHaveURL(productsPage.getURL());
+        });
     });
 
     test('UPS button', async ({ page }) => {
@@ -85,13 +94,16 @@ test.describe('Home Page Tests', {tag: ['@home-page', '@full-regression']}, () =
         //Act
         const homePage = new HomePage(page);    
 
-        await allure.step("Step 2 - Click UPS button", async () => {
+        await allure.step("Step 1 - Click UPS button", async () => {
             await homePage.clickUPS();        
         });
 
         //Assert
         const newPage = await pagePromise;
-        await expect(newPage).toHaveURL(homePage.getUpsURL());
+
+        await allure.step("Check that the expected page loaded", async () => {
+            await expect(newPage).toHaveURL(homePage.getUpsURL());
+        });
     });
 
     test('FedEx button', async ({ page }) => {
@@ -104,12 +116,15 @@ test.describe('Home Page Tests', {tag: ['@home-page', '@full-regression']}, () =
         //Act
         const homePage = new HomePage(page);    
 
-        await allure.step("Step 2 - Click FedEx button", async () => {
+        await allure.step("Step 1 - Click FedEx button", async () => {
             await homePage.clickFedEx();        
         });
 
         //Assert
         const newPage = await pagePromise;
-        await expect(newPage).toHaveURL(homePage.getFedExURL());
+
+        await allure.step("Check that the expected page loaded", async () => {
+            await expect(newPage).toHaveURL(homePage.getFedExURL());
+        });
     });
 });
