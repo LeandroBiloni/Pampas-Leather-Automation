@@ -1,7 +1,7 @@
 /**
  * Class for Orders Page - Filter By search test data
  */
-export class FilterBySearchData {
+export class FilterhData {
     public filterName: string;
     public filterOption: string;
     public filterText: string;
