@@ -3,7 +3,6 @@ import { allure } from "allure-playwright";
 import { OrderItem } from "../components/orders/OrderItem";
 import { OrdersItemList } from "../components/orders/OrdersItemList";
 import { FilterhData as FilterData } from "../data/tests data/FilterData";
-import { FilterByStateData } from "../data/tests data/FilterByStateData";
 import { LoginHelper } from "../helpers/LoginHelper";
 import { Screenshoter } from "../helpers/Screenshoter";
 import { OrdersPage } from "../pages/OrdersPage";
@@ -24,7 +23,7 @@ test.afterEach(async ({ page }, testInfo) => {
     }
 });
 
-test.describe.only('Orders Page Tests - Order by', {tag: ['@orders-page', '@full-regression']}, () => {
+test.describe('Orders Page Tests - Order by', {tag: ['@orders-page', '@full-regression']}, () => {
 
     test("Order by Newest", async ({ page }) => {
         await allure.description("Test that 'Order by Newest' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.");
@@ -96,7 +95,7 @@ test.describe.only('Orders Page Tests - Order by', {tag: ['@orders-page', '@full
         });
     });
 
-    test.only("Order by Deadline Upcoming", async ({ page }) => {
+    test("Order by Deadline Upcoming", async ({ page }) => {
         await allure.description("Test that 'Order by Deadline Upcoming' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.");
         await allure.tags("Orders Page", "Full Regression");
 
@@ -170,64 +169,414 @@ test.describe.only('Orders Page Tests - Order by', {tag: ['@orders-page', '@full
 });
 
 test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-regression']}, () => {
-    const filterByStateData: FilterByStateData[] = [
-        new FilterByStateData("Nuevo", "Nuevo"),
-        new FilterByStateData("Cargado", "Cargado"),
-        new FilterByStateData("Preproducción", "Preproducción"),
-        new FilterByStateData("Producción", "Producción"),
-        new FilterByStateData("Terminado", "Terminado"),
-        new FilterByStateData("Enviado", "Enviado"),
-        new FilterByStateData("Entregado", "Entregado"),
-        new FilterByStateData("Cancelado", "Cancelado")
-    ];
-    
-    for (let index = 0; index < filterByStateData.length; index++) {
-        const data = filterByStateData[index];
 
-        test(`Filter by State - ${data.expectedOrderState}`, async ({ page }) => {
-            await allure.description(`Test that 'Filter by State - ${data.expectedOrderState}' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
-            await allure.tags("Orders Page", "Full Regression");
-            await allure.parameter("State Option", data.stateOption);
+    test(`Filter by State - Nuevo`, async ({ page }) => {
+        await allure.description(`Test that 'Filter by State - Nuevo' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
+        await allure.tags("Orders Page", "Full Regression");
 
-            //Arrange 1
-            const filterOption = "state";
-    
-            //Act 1 - Select Filter option
-            const ordersPage = new OrdersPage(page);
+        //Arrange 1
+        const filterOption = "state";
+        const stateOption = "Nuevo";
+        const expectedState = "Nuevo";
 
-            await allure.step("Step 1 - Select State filter option", async () => {        
-                await ordersPage.selectFilterOption(filterOption);
-            });
-    
-            //Assert 1 - Check that Filter option is selected and State selector is visible
-            const filterByLocator = ordersPage.getFilterByLocator();
-            await allure.step("Check that Filter option is selected and State selector is visible", async () => {
-                await expect(filterByLocator).toHaveValue(filterOption);
-                await expect(ordersPage.isStateSelectorVisible()).toBeTruthy();
-            });
-    
-            //Act 2 - Select State option
-            await allure.step("Step 2 - Select the State to filter", async () => {        
-                await ordersPage.selectFilterStateOption(data.stateOption);
-            });
-    
-            //Assert 2 - Check that the State option is selected
-            const filterStateLocator = ordersPage.getFilterStateLocator();
-            await allure.step("Check that the correct State option is selected", async () => {
-                await expect(filterStateLocator).toHaveValue(data.stateOption);
-            });
-    
-            //Arrange 2 - Get the filtered items
-            const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
-            const orderItem = new OrderItem(page, await ordersList.getOrderByIndex(0));
-            const orderState = await orderItem.getState();
-    
-            //Assert 3 - Check that Orders are filtered
-            await allure.step("Check that filtered order is correct", async () => {
-                await expect(orderState).toBe(data.expectedOrderState);
-            });
+        //Act 1 - Select Filter option
+        const ordersPage = new OrdersPage(page);
+
+        await allure.step("Step 1 - Select State filter option", async () => {        
+            await ordersPage.selectFilterOption(filterOption);
         });
-    };    
+
+        //Assert 1 - Check that Filter option is selected and State selector is visible
+        const filterByLocator = ordersPage.getFilterByLocator();
+        await allure.step("Check that Filter option is selected and State selector is visible", async () => {
+            await expect(filterByLocator).toHaveValue(filterOption);
+            await expect(ordersPage.isStateSelectorVisible()).toBeTruthy();
+        });
+
+        //Act 2 - Select State option
+        await allure.step("Step 2 - Select the State to filter", async () => {        
+            await ordersPage.selectFilterStateOption(stateOption);
+        });
+
+        //Assert 2 - Check that the State option is selected
+        const filterStateLocator = ordersPage.getFilterStateLocator();
+        await allure.step("Check that the correct State option is selected", async () => {
+            await expect(filterStateLocator).toHaveValue(stateOption);
+        });
+
+        //Arrange 2 - Get the filtered items
+        const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
+        const orderItem = new OrderItem(page, await ordersList.getOrderByIndex(0));
+        const orderState = await orderItem.getState();
+
+        //Assert 3 - Check that Orders are filtered
+        await allure.step("Check that filtered order is correct", async () => {
+            await expect(orderState).toBe(expectedState);
+        });
+    });
+
+    test(`Filter by State - Cargado`, async ({ page }) => {
+        await allure.description(`Test that 'Filter by State - Cargado' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
+        await allure.tags("Orders Page", "Full Regression");
+
+        //Arrange 1
+        const filterOption = "state";
+        const stateOption = "Cargado";
+        const expectedState = "Cargado";
+
+        //Act 1 - Select Filter option
+        const ordersPage = new OrdersPage(page);
+
+        await allure.step("Step 1 - Select State filter option", async () => {        
+            await ordersPage.selectFilterOption(filterOption);
+        });
+
+        //Assert 1 - Check that Filter option is selected and State selector is visible
+        const filterByLocator = ordersPage.getFilterByLocator();
+        await allure.step("Check that Filter option is selected and State selector is visible", async () => {
+            await expect(filterByLocator).toHaveValue(filterOption);
+            await expect(ordersPage.isStateSelectorVisible()).toBeTruthy();
+        });
+
+        //Act 2 - Select State option
+        await allure.step("Step 2 - Select the State to filter", async () => {        
+            await ordersPage.selectFilterStateOption(stateOption);
+        });
+
+        //Assert 2 - Check that the State option is selected
+        const filterStateLocator = ordersPage.getFilterStateLocator();
+        await allure.step("Check that the correct State option is selected", async () => {
+            await expect(filterStateLocator).toHaveValue(stateOption);
+        });
+
+        //Arrange 2 - Get the filtered items
+        const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
+        const orderItem = new OrderItem(page, await ordersList.getOrderByIndex(0));
+        const orderState = await orderItem.getState();
+
+        //Assert 3 - Check that Orders are filtered
+        await allure.step("Check that filtered order is correct", async () => {
+            await expect(orderState).toBe(expectedState);
+        });
+    });
+
+    test(`Filter by State - Preproducción`, async ({ page }) => {
+        await allure.description(`Test that 'Filter by State - Preproducción' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
+        await allure.tags("Orders Page", "Full Regression");
+
+        //Arrange 1
+        const filterOption = "state";
+        const stateOption = "Preproducción";
+        const expectedState = "Preproducción";
+
+        //Act 1 - Select Filter option
+        const ordersPage = new OrdersPage(page);
+
+        await allure.step("Step 1 - Select State filter option", async () => {        
+            await ordersPage.selectFilterOption(filterOption);
+        });
+
+        //Assert 1 - Check that Filter option is selected and State selector is visible
+        const filterByLocator = ordersPage.getFilterByLocator();
+        await allure.step("Check that Filter option is selected and State selector is visible", async () => {
+            await expect(filterByLocator).toHaveValue(filterOption);
+            await expect(ordersPage.isStateSelectorVisible()).toBeTruthy();
+        });
+
+        //Act 2 - Select State option
+        await allure.step("Step 2 - Select the State to filter", async () => {        
+            await ordersPage.selectFilterStateOption(stateOption);
+        });
+
+        //Assert 2 - Check that the State option is selected
+        const filterStateLocator = ordersPage.getFilterStateLocator();
+        await allure.step("Check that the correct State option is selected", async () => {
+            await expect(filterStateLocator).toHaveValue(stateOption);
+        });
+
+        //Arrange 2 - Get the filtered items
+        const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
+        const orderItem = new OrderItem(page, await ordersList.getOrderByIndex(0));
+        const orderState = await orderItem.getState();
+
+        //Assert 3 - Check that Orders are filtered
+        await allure.step("Check that filtered order is correct", async () => {
+            await expect(orderState).toBe(expectedState);
+        });
+    });
+
+    test(`Filter by State - Producción`, async ({ page }) => {
+        await allure.description(`Test that 'Filter by State - Producción' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
+        await allure.tags("Orders Page", "Full Regression");
+
+        //Arrange 1
+        const filterOption = "state";
+        const stateOption = "Producción";
+        const expectedState = "Producción";
+
+        //Act 1 - Select Filter option
+        const ordersPage = new OrdersPage(page);
+
+        await allure.step("Step 1 - Select State filter option", async () => {        
+            await ordersPage.selectFilterOption(filterOption);
+        });
+
+        //Assert 1 - Check that Filter option is selected and State selector is visible
+        const filterByLocator = ordersPage.getFilterByLocator();
+        await allure.step("Check that Filter option is selected and State selector is visible", async () => {
+            await expect(filterByLocator).toHaveValue(filterOption);
+            await expect(ordersPage.isStateSelectorVisible()).toBeTruthy();
+        });
+
+        //Act 2 - Select State option
+        await allure.step("Step 2 - Select the State to filter", async () => {        
+            await ordersPage.selectFilterStateOption(stateOption);
+        });
+
+        //Assert 2 - Check that the State option is selected
+        const filterStateLocator = ordersPage.getFilterStateLocator();
+        await allure.step("Check that the correct State option is selected", async () => {
+            await expect(filterStateLocator).toHaveValue(stateOption);
+        });
+
+        //Arrange 2 - Get the filtered items
+        const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
+        const orderItem = new OrderItem(page, await ordersList.getOrderByIndex(0));
+        const orderState = await orderItem.getState();
+
+        //Assert 3 - Check that Orders are filtered
+        await allure.step("Check that filtered order is correct", async () => {
+            await expect(orderState).toBe(expectedState);
+        });
+    });
+
+    test(`Filter by State - Terminado`, async ({ page }) => {
+        await allure.description(`Test that 'Filter by State - Terminado' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
+        await allure.tags("Orders Page", "Full Regression");
+
+        //Arrange 1
+        const filterOption = "state";
+        const stateOption = "Terminado";
+        const expectedState = "Terminado";
+
+        //Act 1 - Select Filter option
+        const ordersPage = new OrdersPage(page);
+
+        await allure.step("Step 1 - Select State filter option", async () => {        
+            await ordersPage.selectFilterOption(filterOption);
+        });
+
+        //Assert 1 - Check that Filter option is selected and State selector is visible
+        const filterByLocator = ordersPage.getFilterByLocator();
+        await allure.step("Check that Filter option is selected and State selector is visible", async () => {
+            await expect(filterByLocator).toHaveValue(filterOption);
+            await expect(ordersPage.isStateSelectorVisible()).toBeTruthy();
+        });
+
+        //Act 2 - Select State option
+        await allure.step("Step 2 - Select the State to filter", async () => {        
+            await ordersPage.selectFilterStateOption(stateOption);
+        });
+
+        //Assert 2 - Check that the State option is selected
+        const filterStateLocator = ordersPage.getFilterStateLocator();
+        await allure.step("Check that the correct State option is selected", async () => {
+            await expect(filterStateLocator).toHaveValue(stateOption);
+        });
+
+        //Arrange 2 - Get the filtered items
+        const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
+        const orderItem = new OrderItem(page, await ordersList.getOrderByIndex(0));
+        const orderState = await orderItem.getState();
+
+        //Assert 3 - Check that Orders are filtered
+        await allure.step("Check that filtered order is correct", async () => {
+            await expect(orderState).toBe(expectedState);
+        });
+    });
+
+    test(`Filter by State - Enviado`, async ({ page }) => {
+        await allure.description(`Test that 'Filter by State - Enviado' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
+        await allure.tags("Orders Page", "Full Regression");
+
+        //Arrange 1
+        const filterOption = "state";
+        const stateOption = "Enviado";
+        const expectedState = "Enviado";
+
+        //Act 1 - Select Filter option
+        const ordersPage = new OrdersPage(page);
+
+        await allure.step("Step 1 - Select State filter option", async () => {        
+            await ordersPage.selectFilterOption(filterOption);
+        });
+
+        //Assert 1 - Check that Filter option is selected and State selector is visible
+        const filterByLocator = ordersPage.getFilterByLocator();
+        await allure.step("Check that Filter option is selected and State selector is visible", async () => {
+            await expect(filterByLocator).toHaveValue(filterOption);
+            await expect(ordersPage.isStateSelectorVisible()).toBeTruthy();
+        });
+
+        //Act 2 - Select State option
+        await allure.step("Step 2 - Select the State to filter", async () => {        
+            await ordersPage.selectFilterStateOption(stateOption);
+        });
+
+        //Assert 2 - Check that the State option is selected
+        const filterStateLocator = ordersPage.getFilterStateLocator();
+        await allure.step("Check that the correct State option is selected", async () => {
+            await expect(filterStateLocator).toHaveValue(stateOption);
+        });
+
+        //Arrange 2 - Get the filtered items
+        const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
+        const orderItem = new OrderItem(page, await ordersList.getOrderByIndex(0));
+        const orderState = await orderItem.getState();
+
+        //Assert 3 - Check that Orders are filtered
+        await allure.step("Check that filtered order is correct", async () => {
+            await expect(orderState).toBe(expectedState);
+        });
+    });
+
+    test(`Filter by State - Entregado`, async ({ page }) => {
+        await allure.description(`Test that 'Filter by State - Entregado' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
+        await allure.tags("Orders Page", "Full Regression");
+
+        //Arrange 1
+        const filterOption = "state";
+        const stateOption = "Entregado";
+        const expectedState = "Entregado";
+
+        //Act 1 - Select Filter option
+        const ordersPage = new OrdersPage(page);
+
+        await allure.step("Step 1 - Select State filter option", async () => {        
+            await ordersPage.selectFilterOption(filterOption);
+        });
+
+        //Assert 1 - Check that Filter option is selected and State selector is visible
+        const filterByLocator = ordersPage.getFilterByLocator();
+        await allure.step("Check that Filter option is selected and State selector is visible", async () => {
+            await expect(filterByLocator).toHaveValue(filterOption);
+            await expect(ordersPage.isStateSelectorVisible()).toBeTruthy();
+        });
+
+        //Act 2 - Select State option
+        await allure.step("Step 2 - Select the State to filter", async () => {        
+            await ordersPage.selectFilterStateOption(stateOption);
+        });
+
+        //Assert 2 - Check that the State option is selected
+        const filterStateLocator = ordersPage.getFilterStateLocator();
+        await allure.step("Check that the correct State option is selected", async () => {
+            await expect(filterStateLocator).toHaveValue(stateOption);
+        });
+
+        //Arrange 2 - Get the filtered items
+        const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
+        const orderItem = new OrderItem(page, await ordersList.getOrderByIndex(0));
+        const orderState = await orderItem.getState();
+
+        //Assert 3 - Check that Orders are filtered
+        await allure.step("Check that filtered order is correct", async () => {
+            await expect(orderState).toBe(expectedState);
+        });
+    });
+
+    test(`Filter by State - Cancelado`, async ({ page }) => {
+        await allure.description(`Test that 'Filter by State - Cancelado' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
+        await allure.tags("Orders Page", "Full Regression");
+
+        //Arrange 1
+        const filterOption = "state";
+        const stateOption = "Cancelado";
+        const expectedState = "Cancelado";
+
+        //Act 1 - Select Filter option
+        const ordersPage = new OrdersPage(page);
+
+        await allure.step("Step 1 - Select State filter option", async () => {        
+            await ordersPage.selectFilterOption(filterOption);
+        });
+
+        //Assert 1 - Check that Filter option is selected and State selector is visible
+        const filterByLocator = ordersPage.getFilterByLocator();
+        await allure.step("Check that Filter option is selected and State selector is visible", async () => {
+            await expect(filterByLocator).toHaveValue(filterOption);
+            await expect(ordersPage.isStateSelectorVisible()).toBeTruthy();
+        });
+
+        //Act 2 - Select State option
+        await allure.step("Step 2 - Select the State to filter", async () => {        
+            await ordersPage.selectFilterStateOption(stateOption);
+        });
+
+        //Assert 2 - Check that the State option is selected
+        const filterStateLocator = ordersPage.getFilterStateLocator();
+        await allure.step("Check that the correct State option is selected", async () => {
+            await expect(filterStateLocator).toHaveValue(stateOption);
+        });
+
+        //Arrange 2 - Get the filtered items
+        const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
+        const orderItem = new OrderItem(page, await ordersList.getOrderByIndex(0));
+        const orderState = await orderItem.getState();
+
+        //Assert 3 - Check that Orders are filtered
+        await allure.step("Check that filtered order is correct", async () => {
+            await expect(orderState).toBe(expectedState);
+        });
+    });
+    
+    // for (let index = 0; index < filterByStateData.length; index++) {
+    //     const data = filterByStateData[index];
+
+    //     test(`Filter by State - ${data.expectedOrderState}`, async ({ page }) => {
+    //         await allure.description(`Test that 'Filter by State - ${data.expectedOrderState}' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
+    //         await allure.tags("Orders Page", "Full Regression");
+    //         await allure.parameter("State Option", data.stateOption);
+
+    //         //Arrange 1
+    //         const filterOption = "state";
+    
+    //         //Act 1 - Select Filter option
+    //         const ordersPage = new OrdersPage(page);
+
+    //         await allure.step("Step 1 - Select State filter option", async () => {        
+    //             await ordersPage.selectFilterOption(filterOption);
+    //         });
+    
+    //         //Assert 1 - Check that Filter option is selected and State selector is visible
+    //         const filterByLocator = ordersPage.getFilterByLocator();
+    //         await allure.step("Check that Filter option is selected and State selector is visible", async () => {
+    //             await expect(filterByLocator).toHaveValue(filterOption);
+    //             await expect(ordersPage.isStateSelectorVisible()).toBeTruthy();
+    //         });
+    
+    //         //Act 2 - Select State option
+    //         await allure.step("Step 2 - Select the State to filter", async () => {        
+    //             await ordersPage.selectFilterStateOption(data.stateOption);
+    //         });
+    
+    //         //Assert 2 - Check that the State option is selected
+    //         const filterStateLocator = ordersPage.getFilterStateLocator();
+    //         await allure.step("Check that the correct State option is selected", async () => {
+    //             await expect(filterStateLocator).toHaveValue(data.stateOption);
+    //         });
+    
+    //         //Arrange 2 - Get the filtered items
+    //         const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
+    //         const orderItem = new OrderItem(page, await ordersList.getOrderByIndex(0));
+    //         const orderState = await orderItem.getState();
+    
+    //         //Assert 3 - Check that Orders are filtered
+    //         await allure.step("Check that filtered order is correct", async () => {
+    //             await expect(orderState).toBe(data.expectedOrderState);
+    //         });
+    //     });
+    // };    
 
     const filterBySearch: FilterData[] = [
         new FilterData("OT#", "numberOrder", "4014"),
