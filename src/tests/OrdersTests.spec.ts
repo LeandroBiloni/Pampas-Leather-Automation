@@ -2,7 +2,7 @@ import test, { expect } from "@playwright/test";
 import { allure } from "allure-playwright";
 import { OrderItem } from "../components/orders/OrderItem";
 import { OrdersItemList } from "../components/orders/OrdersItemList";
-import { FilterhData } from "../data/tests data/FilterData";
+import { FilterhData as FilterData } from "../data/tests data/FilterData";
 import { FilterByStateData } from "../data/tests data/FilterByStateData";
 import { LoginHelper } from "../helpers/LoginHelper";
 import { Screenshoter } from "../helpers/Screenshoter";
@@ -25,45 +25,149 @@ test.afterEach(async ({ page }, testInfo) => {
 });
 
 test.describe.only('Orders Page Tests - Order by', {tag: ['@orders-page', '@full-regression']}, () => {
-    const filterBySearch: FilterhData[] = [
-        new FilterhData("Newest#", "ot-des", "4017"),
-        new FilterhData("Oldest", "ot-asc", "4009"),
-        new FilterhData("Deadline Upcoming", "date-des", "4013"),
-        new FilterhData("Deadline Distant", "date-asc", "4009")
-    ];
-    
-    for (let index = 0; index < filterBySearch.length; index++) {
-        const data = filterBySearch[index];
-        test(`Order by ${data.filterName}`, async ({ page }) => {
-            await allure.description("Test that 'Order by Newest' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.");
-            await allure.tags("Orders Page", "Full Regression");
 
-            //Arrange
-            
-            //Act 1 - Select Order option
-            const ordersPage = new OrdersPage(page);
+    test("Order by Newest", async ({ page }) => {
+        await allure.description("Test that 'Order by Newest' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.");
+        await allure.tags("Orders Page", "Full Regression");
 
-            await allure.step("Step 1 - Select order option", async () => {        
-                await ordersPage.selectOrderOption(data.filterOption);
-            });    
+        //Arrange
+        const filterOption = "ot-des";
+        
+        //Act 1 - Select Order option
+        const ordersPage = new OrdersPage(page);
 
-            //Assert 1 - Check that Order option is selected
-            const sortOrderLocator = ordersPage.getSortOrderLocator();
-            await allure.step("Check that Order order is selected", async () => {
-                await expect(sortOrderLocator).toHaveValue(data.filterOption);
-            });
+        await allure.step("Step 1 - Select order option", async () => {        
+            await ordersPage.selectOrderOption(filterOption);
+        });    
 
-            //Arrange 2 - Get the first listed order
-            const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
-            const orderItem = new OrderItem(page, await ordersList.getOrderByIndex(0));
-            const orderNumber = await orderItem.getOTIdentifier();
-
-            //Assert 2 - Check that Orders are ordered
-            await allure.step("Check that filtered order is correct", async () => {
-                await expect(orderNumber).toBe(data.filterText);
-            });
+        //Assert 1 - Check that Order option is selected
+        const sortOrderLocator = ordersPage.getSortOrderLocator();
+        await allure.step("Check that Order order is selected", async () => {
+            await expect(sortOrderLocator).toHaveValue(filterOption);
         });
-}});
+
+        //Arrange 2 - Get the first listed order and the newest order
+        const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
+
+        const firstItem = new OrderItem(page, await ordersList.getOrderByIndex(0));
+        const firstItemOrderNumber = await firstItem.getOTIdentifier();
+
+        const newestOrderItem = await ordersList.getNewestOrder();
+        const newestOrderNumber = await newestOrderItem.getOTIdentifier();        
+
+        //Assert 2 - Check that Orders are ordered
+        await allure.step("Check that filtered order is correct", async () => {
+            await expect(firstItemOrderNumber).toBe(newestOrderNumber);
+        });
+    });
+
+    test("Order by Oldest", async ({ page }) => {
+        await allure.description("Test that 'Order by Oldest' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.");
+        await allure.tags("Orders Page", "Full Regression");
+
+        //Arrange
+        const filterOption = "ot-asc";
+        
+        //Act 1 - Select Order option
+        const ordersPage = new OrdersPage(page);
+
+        await allure.step("Step 1 - Select order option", async () => {        
+            await ordersPage.selectOrderOption(filterOption);
+        });    
+
+        //Assert 1 - Check that Order option is selected
+        const sortOrderLocator = ordersPage.getSortOrderLocator();
+        await allure.step("Check that Order order is selected", async () => {
+            await expect(sortOrderLocator).toHaveValue(filterOption);
+        });
+
+        //Arrange 2 - Get the first listed order and the oldest order
+        const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
+
+        const firstItem = new OrderItem(page, await ordersList.getOrderByIndex(0));
+        const firstItemOrderNumber = await firstItem.getOTIdentifier();
+
+        const oldestOrderItem = await ordersList.getOldestOrder();
+        const oldestOrderNumber = await oldestOrderItem.getOTIdentifier();
+
+        //Assert 2 - Check that Orders are ordered
+        await allure.step("Check that filtered order is correct", async () => {
+            await expect(firstItemOrderNumber).toBe(oldestOrderNumber);
+        });
+    });
+
+    test.only("Order by Deadline Upcoming", async ({ page }) => {
+        await allure.description("Test that 'Order by Deadline Upcoming' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.");
+        await allure.tags("Orders Page", "Full Regression");
+
+        //Arrange
+        const filterOption = "date-des";
+        
+        //Act 1 - Select Order option
+        const ordersPage = new OrdersPage(page);
+
+        await allure.step("Step 1 - Select order option", async () => {        
+            await ordersPage.selectOrderOption(filterOption);
+        });    
+
+        //Assert 1 - Check that Order option is selected
+        const sortOrderLocator = ordersPage.getSortOrderLocator();
+        await allure.step("Check that Order order is selected", async () => {
+            await expect(sortOrderLocator).toHaveValue(filterOption);
+        });
+
+        //Arrange 2 - Get the first listed order and the upcoming deadline order
+        const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
+
+        const firstItem = new OrderItem(page, await ordersList.getOrderByIndex(0));
+        const firstItemOrderNumber = await firstItem.getOTIdentifier();
+
+        const upcomingOrderItem = await ordersList.getUpcomingDeadlineOrder();
+        const upcomingOrderNumber = await upcomingOrderItem.getOTIdentifier();
+
+
+        //Assert 2 - Check that Orders are ordered
+        await allure.step("Check that filtered order is correct", async () => {
+            await expect(firstItemOrderNumber).toBe(upcomingOrderNumber);
+        });
+    });
+
+    test("Order by Deadline Distant", async ({ page }) => {
+        await allure.description("Test that 'Order by Deadline Distant' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.");
+        await allure.tags("Orders Page", "Full Regression");
+
+        //Arrange
+        const filterOption = "date-asc";
+        
+        //Act 1 - Select Order option
+        const ordersPage = new OrdersPage(page);
+
+        await allure.step("Step 1 - Select order option", async () => {        
+            await ordersPage.selectOrderOption(filterOption);
+        });    
+
+        //Assert 1 - Check that Order option is selected
+        const sortOrderLocator = ordersPage.getSortOrderLocator();
+        await allure.step("Check that Order order is selected", async () => {
+            await expect(sortOrderLocator).toHaveValue(filterOption);
+        });
+
+        //Arrange 2 - Get the first listed order and the oldest deadline order
+        const ordersList = new OrdersItemList(page, await ordersPage.getSearchListContainer());
+
+        const firstItem = new OrderItem(page, await ordersList.getOrderByIndex(0));
+        const firstItemOrderNumber = await firstItem.getOTIdentifier();
+
+        const oldestDeadlineOrderItem = await ordersList.getOldestDeadlineOrder();
+        const oldestDeadlineOrderNumber = await oldestDeadlineOrderItem.getOTIdentifier();
+
+
+        //Assert 2 - Check that Orders are ordered
+        await allure.step("Check that filtered order is correct", async () => {
+            await expect(firstItemOrderNumber).toBe(oldestDeadlineOrderNumber);
+        });
+    });
+});
 
 test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-regression']}, () => {
     const filterByStateData: FilterByStateData[] = [
@@ -125,11 +229,11 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
         });
     };    
 
-    const filterBySearch: FilterhData[] = [
-        new FilterhData("OT#", "numberOrder", "4014"),
-        new FilterhData("Customer", "customer", "A1 Interiors"),
-        new FilterhData("PO#", "purchaseOrder", "222"),
-        new FilterhData("Deadline", "limitDate", "2025-09-18")
+    const filterBySearch: FilterData[] = [
+        new FilterData("OT#", "numberOrder", "4014"),
+        new FilterData("Customer", "customer", "A1 Interiors"),
+        new FilterData("PO#", "purchaseOrder", "222"),
+        new FilterData("Deadline", "limitDate", "2025-09-18")
     ];
     
     for (let index = 0; index < filterBySearch.length; index++) {
