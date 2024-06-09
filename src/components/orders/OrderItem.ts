@@ -11,10 +11,7 @@ export class OrderItem extends BaseComponent {
     private clientName: Locator;
     private poIdentifier: Locator;
     private deadline: Locator;
-    private productsContainer: Locator;
-
-
-    
+    private productsContainer: Locator;   
     
     /**
      * Class constructor.

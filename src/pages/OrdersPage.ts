@@ -79,11 +79,19 @@ export class OrdersPage extends BasePage{
         return this.sortOrder;
     }
     
+    /**
+     * Get the FilterBy locator.
+     * @returns The corresponding locator.
+     */
     getFilterByLocator(): Locator {
         this.logger.info(`Getting the Filter By in Orders Page`);
         return this.filterBy;
     }
 
+    /**
+     * Get the FilterState locator.
+     * @returns The corresponding locator.
+     */
     getFilterStateLocator(): Locator {
         this.logger.info(`Getting the Filter State in Orders Page`);
         return this.filterState;

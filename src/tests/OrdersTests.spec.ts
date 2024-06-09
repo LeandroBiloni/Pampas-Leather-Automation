@@ -167,7 +167,7 @@ test.describe('Orders Page Tests - Order by', {tag: ['@orders-page', '@full-regr
     });
 });
 
-test.describe.only('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-regression']}, () => {
+test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-regression']}, () => {
 
     test(`Filter by State - Nuevo`, async ({ page }) => {
         await allure.description(`Test that 'Filter by State - Nuevo' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);

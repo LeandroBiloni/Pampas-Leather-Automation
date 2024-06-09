@@ -46,6 +46,10 @@ export class OrdersItemList extends BaseComponent {
         }
     }
     
+    /**
+     * Get the most recent created order.
+     * @returns The OrderItem of the newest order.
+     */
     async getNewestOrder(): Promise<OrderItem> {
         this.logger.info(`Getting the newest Order`);
         
@@ -68,6 +72,10 @@ export class OrdersItemList extends BaseComponent {
         return newestOrder;
     }
 
+    /**
+     * Get the oldest created order.
+     * @returns The OrderItem of the oldest order. 
+     */
     async getOldestOrder(): Promise<OrderItem> {
         this.logger.info(`Getting the oldest Order`);
         
@@ -90,6 +98,10 @@ export class OrdersItemList extends BaseComponent {
         return oldestOrder;
     }
 
+    /**
+     * Get the order with the closest upcoming deadline.
+     * @returns The OrderItem of the closest deadline. 
+     */
     async getUpcomingDeadlineOrder(): Promise<OrderItem> {
         this.logger.info(`Getting the Upcoming Deadline Order`);
         
@@ -122,6 +134,10 @@ export class OrdersItemList extends BaseComponent {
         return closestDeadlineOrder;
     }
 
+    /**
+     * Get the order with the oldest deadline.
+     * @returns The OrderItem of the oldest deadline. 
+     */
     async getOldestDeadlineOrder(): Promise<OrderItem> {
         this.logger.info(`Getting the Oldest Deadline Order`);
         
