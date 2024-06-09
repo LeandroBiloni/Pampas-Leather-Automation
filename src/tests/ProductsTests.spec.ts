@@ -3,7 +3,6 @@ import { allure } from "allure-playwright";
 import { LoginHelper } from "../helpers/LoginHelper";
 import { Screenshoter } from "../helpers/Screenshoter";
 import { ColorsListPage } from "../pages/ColorsListPage";
-import { HomePage } from "../pages/HomePage";
 import { ProductsListPage } from "../pages/ProductsListPage";
 import { ProductsPage } from "../pages/ProductsPage";
 
@@ -12,8 +11,8 @@ test.beforeEach(async ({ page}) => {
     const password = process.env.CORRECT_PASSWORD as string;
     await LoginHelper.doLogin(email, password, page);
 
-    const homePage = new HomePage(page);
-    await page.goto(homePage.getURL());
+    const productsPage = new ProductsPage(page);
+    await page.goto(productsPage.getURL());
 });
 
 test.afterEach(async ({ page }, testInfo) => {
@@ -30,13 +29,8 @@ test.describe('Products Page Tests', {tag: ['@products-page', '@full-regression'
         //Arrange
     
         //Act
-        const homePage = new HomePage(page);
-        await allure.step("Step 1 - Click Products button", async () => {
-            await homePage.clickProducts();
-        });
-    
         const productsPage = new ProductsPage(page);
-        await allure.step("Step 2 - Click Products List button", async () => {
+        await allure.step("Step 1 - Click Products List button", async () => {
             await productsPage.clickProductsList();
         });
         
@@ -53,14 +47,8 @@ test.describe('Products Page Tests', {tag: ['@products-page', '@full-regression'
         //Arrange
     
         //Act
-        const homePage = new HomePage(page);    
-    
-        await allure.step("Step 2 - Click Clients button", async () => {
-            await homePage.clickProducts();
-        });
-        
         const productsPage = new ProductsPage(page);
-        await allure.step("Step 3 - Click Colors List button", async () => {
+        await allure.step("Step 1 - Click Colors List button", async () => {
             await productsPage.clickColorsList();
         });
         
