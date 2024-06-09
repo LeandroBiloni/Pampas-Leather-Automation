@@ -22,7 +22,7 @@ test.afterEach(async ({ page }, testInfo) => {
     }
 });
 
-test.describe.only('Products List Page Tests', {tag: ['@products-list-page', '@full-regression']}, () => {
+test.describe('Products List Page Tests', {tag: ['@products-list-page', '@full-regression']}, () => {
     test('Search by Product name', async ({ page }) => {
         await allure.description("Test that 'Search by Product name' functionality in Products List Page works. Before this test starts it already logged in and navigated to Products List Page.");
         await allure.tags("Products List Page", "Full Regression");

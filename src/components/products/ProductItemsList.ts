@@ -2,7 +2,7 @@ import { Locator, Page } from "@playwright/test";
 import { BaseComponent } from "../../base/BaseComponent";
 
 /**
- * Class for the Product Items List in the Order Item component.
+ * Class for the Product Items List in the Products List Page.
  */
 export class ProductItemsList extends BaseComponent {
     private product: Locator;
