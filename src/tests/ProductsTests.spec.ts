@@ -24,7 +24,7 @@ test.afterEach(async ({ page }, testInfo) => {
 
 test.describe('Products Page Tests', {tag: ['@products-page', '@full-regression']}, () => {
     test('Products List button', async ({ page }) => {
-        await allure.description("Test that 'Products List' button in Products Page works. Before this test starts it already logged in and navigated to Home Page.");
+        await allure.description("Test that 'Products List' button in Products Page works. Before this test starts it already logged in and navigated to Products Page.");
         await allure.tags("Products Page", "Full Regression");
         //Arrange
     
@@ -42,7 +42,7 @@ test.describe('Products Page Tests', {tag: ['@products-page', '@full-regression'
     });
     
     test('Colors List button', async ({ page }) => {
-        await allure.description("Test that 'Colors List' button in Products Page works. Before this test starts it already logged in and navigated to Home Page.");
+        await allure.description("Test that 'Colors List' button in Products Page works. Before this test starts it already logged in and navigated to Products Page.");
         await allure.tags("Products Page", "Full Regression");
         //Arrange
     

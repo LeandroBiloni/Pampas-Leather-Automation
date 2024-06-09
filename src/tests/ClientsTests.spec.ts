@@ -3,8 +3,8 @@ import { allure } from "allure-playwright";
 import { LoginHelper } from "../helpers/LoginHelper";
 import { Screenshoter } from "../helpers/Screenshoter";
 import { ClientsPage } from "../pages/ClientsPage";
-import { ClientsList } from "../components/orders/ClientsList";
-import { ClientItem } from "../components/orders/ClientItem";
+import { ClientsList } from "../components/clients/ClientsList";
+import { ClientItem } from "../components/clients/ClientItem";
 
 
 test.beforeEach(async ({ page}) => {
@@ -34,7 +34,7 @@ test.describe('Clients Page Tests', {tag: ['@clients-page', '@full-regression']}
 
         //Act
         const clientsPage = new ClientsPage(page);
-        await allure.step("Step 1 - Click Orders button", async () => {
+        await allure.step("Step 1 - Input client name", async () => {
             await clientsPage.inputSearchFieldText(expectedClientName);
         });
 
@@ -57,7 +57,7 @@ test.describe('Clients Page Tests', {tag: ['@clients-page', '@full-regression']}
 
         //Act
         const clientsPage = new ClientsPage(page);
-        await allure.step("Step 1 - Click Orders button", async () => {
+        await allure.step("Step 1 - Input client name", async () => {
             await clientsPage.inputSearchFieldText(expectedClientCode);
         });
 
