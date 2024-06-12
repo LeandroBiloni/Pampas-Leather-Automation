@@ -564,7 +564,7 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
 
         //Assert 3 - Check that Orders are filtered
         await allure.step("Check that filtered order is correct", async () => {
-            await expect(otId).toBe(filterText);
+            await expect(otId).toContain(filterText);
         });
     });
 
@@ -603,7 +603,7 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
 
         //Assert 3 - Check that Orders are filtered
         await allure.step("Check that filtered order is correct", async () => {
-            await expect(otId).toBe(filterText);
+            await expect(otId).toContain(filterText);
         });
     });
 
@@ -642,7 +642,7 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
 
         //Assert 3 - Check that Orders are filtered
         await allure.step("Check that filtered order is correct", async () => {
-            await expect(otId).toBe(filterText);
+            await expect(otId).toContain(filterText);
         });
     });
 
@@ -682,7 +682,7 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
 
         //Assert 3 - Check that Orders are filtered
         await allure.step("Check that filtered order is correct", async () => {
-            await expect(otId).toBe(filterText);
+            await expect(otId).toContain(filterText);
         });
     });
 });

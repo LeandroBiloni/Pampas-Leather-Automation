@@ -2,6 +2,7 @@ import test, { expect } from "@playwright/test";
 import { allure } from "allure-playwright";
 import { Screenshoter } from "../helpers/Screenshoter";
 import { LoginPage } from "../pages/LoginPage";
+import { HomePage } from "../pages/HomePage";
 
 test.afterEach(async ({ page }, testInfo) => {
     if (testInfo.status === "failed") {
@@ -14,19 +15,12 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
     test('Correct Login', async ({ page }) => {
         await allure.description("Test of 'Login' functionality. This test attempts to do the login procedure with valid credentials.");
         await allure.tags("Login Page", "Full Regression", "Smoke");
-        
+
         //Arrange
         const email = process.env.CORRECT_EMAIL as string;
         const password = process.env.CORRECT_PASSWORD as string;
-
-        const expectedDialog = "exito";
-        let currentDialog = "";
-
-        page.on('dialog', async (dialog) => {
-            currentDialog = dialog.message();
-            console.log("At dialogue popup: " + currentDialog);
-            await dialog.accept();
-        });
+        await allure.parameter("Email", password, {mode: "masked"});
+        await allure.parameter("Password", email, {mode: "masked"})
 
         //Act - Do login
         const loginPage = new LoginPage(page);
@@ -42,30 +36,28 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
             await loginPage.inputPassword(password);
         });
 
+        const homePage = new HomePage(page);
         await allure.step("Step 4 - Click Login button", async () => {
             await loginPage.clickLogin();
-            await page.waitForEvent('dialog');
+            await page.waitForURL(homePage.getURL());
         });
 
         //Assert
-        await allure.step("Check that the Success message appears", async () => {
-            await expect(currentDialog).toBe(expectedDialog);
+        await allure.step("Check that the Home Page loads", async () => {
+            await expect(page).toHaveURL(homePage.getURL());
         });
     });
 
     test('Wrong Login - Empty fields', async ({ page }) => {
         await allure.description("Test of 'Login' functionality. This test attempts to do the login procedure leaving the email and password fields empty. It will fail if the login is performed correctly.");
         await allure.tags("Login Page", "Full Regression", "Smoke");
-        
-        //Arrange
-        const expectedDialog = "noup";
-        let currentDialog = "";
+        await allure.parameter("Email", "");
+        await allure.parameter("Password", "");
 
-        page.on('dialog', async (dialog) => {
-            currentDialog = dialog.message();
-            console.log("At dialogue popup: " + currentDialog);
-            await dialog.accept();
-        });
+        //Arrange
+        const expectedEmailDialog = "Email is required";
+        const expectedPasswordDialog = "Password is required";
+        const expectedLoginDialog = "Please fix the errors in the form";
 
         //Act - Do login
         const loginPage = new LoginPage(page);
@@ -75,12 +67,13 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
 
         await allure.step("Step 2 - Click Login button", async () => {
             loginPage.clickLogin();
-            await page.waitForEvent('dialog');
         });
 
         //Assert        
-        await allure.step("Check that the Failure message appears", async () => {
-            await expect(currentDialog).toBe(expectedDialog);
+        await allure.step("Check that the Failure messages appears", async () => {
+            await expect(await loginPage.getEmailError()).toBe(expectedEmailDialog);
+            await expect(await loginPage.getPasswordError()).toBe(expectedPasswordDialog);
+            await expect(await loginPage.getLoginError()).toBe(expectedLoginDialog);
         });
     });
 
@@ -89,17 +82,12 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
         await allure.tags("Login Page", "Full Regression", "Smoke");
         
         //Arrange
-        const password = "asd";
+        const password = "asdasd";
+        await allure.parameter("Email", "");
+        await allure.parameter("Password", password);
 
-        const expectedDialog = "noup";
-        let currentDialog = "";
-
-        page.on('dialog', async (dialog) => {
-            currentDialog = dialog.message();
-            console.log("At dialogue popup: " + currentDialog);
-            await dialog.accept();
-        });
-
+        const expectedEmailDialog = "Email is required";
+        const expectedLoginDialog = "Please fix the errors in the form";
 
         //Act - Do login
         const loginPage = new LoginPage(page);
@@ -113,12 +101,12 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
 
         await allure.step("Step 3 - Click Login button", async () => {
             await loginPage.clickLogin();
-            await page.waitForEvent('dialog');
         });
 
         //Assert        
         await allure.step("Check that the Failure message appears", async () => {
-            await expect(currentDialog).toBe(expectedDialog);
+            await expect(await loginPage.getEmailError()).toBe(expectedEmailDialog);
+            await expect(await loginPage.getLoginError()).toBe(expectedLoginDialog);
         });
     });
 
@@ -127,16 +115,12 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
         await allure.tags("Login Page", "Full Regression", "Smoke");
         
         //Arrange
-        const email = "asd@asd";
+        const email = "email@email.com";
+        await allure.parameter("Email", email);
+        await allure.parameter("Password", "");
 
-        const expectedDialog = "noup";
-        let currentDialog = "";
-
-        page.on('dialog', async (dialog) => {
-            currentDialog = dialog.message();
-            console.log("At dialogue popup: " + currentDialog);
-            await dialog.accept();
-        });
+        const expectedPasswordDialog = "Password is required";
+        const expectedLoginDialog = "Please fix the errors in the form";
 
         //Act - Do login
         const loginPage = new LoginPage(page);
@@ -150,31 +134,28 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
 
         await allure.step("Step 3 - Click Login button", async () => {
             await loginPage.clickLogin();
-            await page.waitForEvent('dialog');
         });
 
         //Assert        
         await allure.step("Check that the Failure message appears", async () => {
-            await expect(currentDialog).toBe(expectedDialog);
+            await expect(await loginPage.getPasswordError()).toBe(expectedPasswordDialog);
+            await expect(await loginPage.getLoginError()).toBe(expectedLoginDialog);
         });
     });
 
-    test('Wrong Login - Wrong credentials', async ({ page }) => {
-        await allure.description("Test of 'Login' functionality. This test attempts to do the login procedure using invalid credentials. It will fail if the login is performed correctly.");
+    test('Wrong Login - Wrong credentials format', async ({ page }) => {
+        await allure.description("Test of 'Login' functionality. This test attempts to do the login procedure using wrong credentials format. It will fail if the login is performed correctly.");
         await allure.tags("Login Page", "Full Regression", "Smoke");
         
         //Arrange
         const email = "asd@asd";
         const password = "asd";
+        await allure.parameter("Email", email);
+        await allure.parameter("Password", password);
 
-        const expectedDialog = "noup";
-        let currentDialog = "";
-
-        page.on('dialog', async (dialog) => {
-            currentDialog = dialog.message();
-            console.log("At dialogue popup: " + currentDialog);
-            await dialog.accept();
-        });
+        const expectedEmailDialog = "Invalid email format";
+        const expectedPasswordDialog = "Password must be at least 6 characters long";
+        const expectedLoginDialog = "Please fix the errors in the form";
 
 
         //Act - Do login
@@ -188,17 +169,51 @@ test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@sm
         });
 
         await allure.step("Step 3 - Input password", async () => {
-            await loginPage.inputEmail(password);
-        });
-
-        await allure.step("Step 4 - Click Login button", async () => {
-            await loginPage.clickLogin();
-            await page.waitForEvent('dialog');
+            await loginPage.inputPassword(password);
         });
 
         //Assert        
         await allure.step("Check that the Failure message appears", async () => {
-            await expect(currentDialog).toBe(expectedDialog);
+            await expect(await loginPage.getEmailError()).toBe(expectedEmailDialog);
+            await expect(await loginPage.getPasswordError()).toBe(expectedPasswordDialog);
+            await expect(await loginPage.isLoginButtonEnabled()).toBeFalsy();
+        });
+    });
+
+    test('Wrong Login - Invalid credentials', async ({ page }) => {
+        await allure.description("Test of 'Login' functionality. This test attempts to do the login procedure using invalid credentials. It will fail if the login is performed correctly.");
+        await allure.tags("Login Page", "Full Regression", "Smoke");
+        
+        //Arrange
+        const email = "asd@asd.com";
+        const password = "asdasd";
+        await allure.parameter("Email", email);
+        await allure.parameter("Password", password);
+
+        const expectedLoginDialog = "Login failed. Please check your email and password.";
+
+
+        //Act - Do login
+        const loginPage = new LoginPage(page);
+        await allure.step("Step 1 - Go to Login Page", async () => {
+            await page.goto(loginPage.getURL());
+        });
+
+        await allure.step("Step 2 - Input email", async () => {
+            await loginPage.inputEmail(email);
+        });
+
+        await allure.step("Step 3 - Input password", async () => {
+            await loginPage.inputPassword(password);
+        });
+
+        await allure.step("Step 4 - Click Login button", async () => {
+            await loginPage.clickLogin();
+        });
+
+        //Assert        
+        await allure.step("Check that the Failure message appears", async () => {
+            await expect(loginPage.getLoginErrorLocator()).toHaveText(expectedLoginDialog);
         });
     });
 });
