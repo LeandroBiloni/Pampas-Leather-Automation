@@ -1,34 +1,21 @@
 import test, { expect } from "@playwright/test";
 import { allure } from "allure-playwright";
-import { LoginHelper } from "../helpers/LoginHelper";
-import { Screenshoter } from "../helpers/Screenshoter";
-import { ColorsListPage } from "../pages/ColorsListPage";
-import { ColorsList } from "../components/colors/ColorsList";
 import { ColorItem } from "../components/colors/ColorItem";
+import { ColorsList } from "../components/colors/ColorsList";
+import { ColorsListPage } from "../pages/ColorsListPage";
 
 test.beforeEach(async ({ page}) => {
-    const email = process.env.CORRECT_EMAIL as string;
-    const password = process.env.CORRECT_PASSWORD as string;
-    await LoginHelper.doLogin(email, password, page);
-
     const colorsListPage = new ColorsListPage(page);
     await page.goto(colorsListPage.getURL());
-});
-
-test.afterEach(async ({ page }, testInfo) => {
-    if (testInfo.status === "failed") {
-        const addTimeStamp = true;
-        await Screenshoter.TakeScreenshot(page, testInfo.title, addTimeStamp);
-    }
 });
 
 test.describe('Colors List Page Tests', {tag: ['@colors-list-page', '@full-regression']}, () => {
     test('Search by Color name', async ({ page }) => {
         await allure.description("Test that 'Search by Product name' functionality in Products List Page works. Before this test starts it already logged in and navigated to Products List Page.");
-        await allure.tags("Colors List Page", "Full Regression");
+        await allure.tags("Colors List Page", "Full Regression", "Search");
 
         //Arrange
-        const expectedProductName = "Batic Grey";
+        const expectedProductName = "ert";
 
         //Act 
         const colorsListPage = new ColorsListPage(page);
@@ -48,10 +35,10 @@ test.describe('Colors List Page Tests', {tag: ['@colors-list-page', '@full-regre
 
     test('Search by Color code', async ({ page }) => {
         await allure.description("Test that 'Search by Product code' functionality in Products List Page works. Before this test starts it already logged in and navigated to Products List Page.");
-        await allure.tags("Colors List Page", "Full Regression");
+        await allure.tags("Colors List Page", "Full Regression", "Search");
 
         //Arrange
-        const expectedColorCode = "AL";
+        const expectedColorCode = "cvb";
 
         //Act 
         const colorsListPage = new ColorsListPage(page);
@@ -71,10 +58,10 @@ test.describe('Colors List Page Tests', {tag: ['@colors-list-page', '@full-regre
 
     test('Search by Color description', async ({ page }) => {
         await allure.description("Test that 'Search by Product description' functionality in Products List Page works. Before this test starts it already logged in and navigated to Products List Page.");
-        await allure.tags("Colors List Page", "Full Regression");
+        await allure.tags("Colors List Page", "Full Regression", "Search");
 
         //Arrange
-        const expectedColorDescription = "Atigrados Marrones";
+        const expectedColorDescription = "asd";
 
         //Act 
         const colorsListPage = new ColorsListPage(page);

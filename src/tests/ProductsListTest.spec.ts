@@ -1,31 +1,18 @@
 import test, { expect } from "@playwright/test";
 import { allure } from "allure-playwright";
-import { LoginHelper } from "../helpers/LoginHelper";
-import { Screenshoter } from "../helpers/Screenshoter";
-import { ProductsListPage } from "../pages/ProductsListPage";
-import { ProductItemsList } from "../components/products/ProductItemsList";
 import { ProductItem } from "../components/products/ProductItem";
+import { ProductItemsList } from "../components/products/ProductItemsList";
+import { ProductsListPage } from "../pages/ProductsListPage";
 
 test.beforeEach(async ({ page}) => {
-    const email = process.env.CORRECT_EMAIL as string;
-    const password = process.env.CORRECT_PASSWORD as string;
-    await LoginHelper.doLogin(email, password, page);
-
     const productsListPage = new ProductsListPage(page);
     await page.goto(productsListPage.getURL());
-});
-
-test.afterEach(async ({ page }, testInfo) => {
-    if (testInfo.status === "failed") {
-        const addTimeStamp = true;
-        await Screenshoter.TakeScreenshot(page, testInfo.title, addTimeStamp);
-    }
 });
 
 test.describe('Products List Page Tests', {tag: ['@products-list-page', '@full-regression']}, () => {
     test('Search by Product name', async ({ page }) => {
         await allure.description("Test that 'Search by Product name' functionality in Products List Page works. Before this test starts it already logged in and navigated to Products List Page.");
-        await allure.tags("Products List Page", "Full Regression");
+        await allure.tags("Products List Page", "Full Regression", "Search");
 
         //Arrange
         const expectedProductName = "Diamond";
@@ -48,7 +35,7 @@ test.describe('Products List Page Tests', {tag: ['@products-list-page', '@full-r
 
     test('Search by Product material', async ({ page }) => {
         await allure.description("Test that 'Search by Product material' functionality in Products List Page works. Before this test starts it already logged in and navigated to Products List Page.");
-        await allure.tags("Products List Page", "Full Regression");
+        await allure.tags("Products List Page", "Full Regression", "Search");
 
         //Arrange
         const expectedProductMaterial = "Alpaca";
@@ -71,7 +58,7 @@ test.describe('Products List Page Tests', {tag: ['@products-list-page', '@full-r
 
     test('Search by Product code', async ({ page }) => {
         await allure.description("Test that 'Search by Product code' functionality in Products List Page works. Before this test starts it already logged in and navigated to Products List Page.");
-        await allure.tags("Products List Page", "Full Regression");
+        await allure.tags("Products List Page", "Full Regression", "Search");
 
         //Arrange
         const expectedProductCode = "DIA";
@@ -94,10 +81,10 @@ test.describe('Products List Page Tests', {tag: ['@products-list-page', '@full-r
 
     test('Search by Product description', async ({ page }) => {
         await allure.description("Test that 'Search by Product description' functionality in Products List Page works. Before this test starts it already logged in and navigated to Products List Page.");
-        await allure.tags("Products List Page", "Full Regression");
+        await allure.tags("Products List Page", "Full Regression", "Search");
 
         //Arrange
-        const expectedProductDescription = "This is the description of the Ischia rug";
+        const expectedProductDescription = "Descripcion para modelo diamond";
 
         //Act 
         const productsListPage = new ProductsListPage(page);
@@ -117,10 +104,10 @@ test.describe('Products List Page Tests', {tag: ['@products-list-page', '@full-r
 
     test('Search by Product border', async ({ page }) => {
         await allure.description("Test that 'Search by Product border' functionality in Products List Page works. Before this test starts it already logged in and navigated to Products List Page.");
-        await allure.tags("Products List Page", "Full Regression");
+        await allure.tags("Products List Page", "Full Regression", "Search");
 
         //Arrange
-        const expectedProductBorder = "si";
+        const expectedProductBorder = "no";
 
         //Act 
         const productsListPage = new ProductsListPage(page);

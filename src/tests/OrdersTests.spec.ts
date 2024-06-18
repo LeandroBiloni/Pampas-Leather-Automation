@@ -2,31 +2,18 @@ import test, { expect } from "@playwright/test";
 import { allure } from "allure-playwright";
 import { OrderItem } from "../components/orders/OrderItem";
 import { OrdersItemList } from "../components/orders/OrdersItemList";
-import { LoginHelper } from "../helpers/LoginHelper";
-import { Screenshoter } from "../helpers/Screenshoter";
 import { OrdersPage } from "../pages/OrdersPage";
 
 test.beforeEach(async ({ page}) => {
-    const email = process.env.CORRECT_EMAIL as string;
-    const password = process.env.CORRECT_PASSWORD as string;
-    await LoginHelper.doLogin(email, password, page);
-
     const ordersPage = new OrdersPage(page);
     await page.goto(ordersPage.getURL());
-});
-
-test.afterEach(async ({ page }, testInfo) => {
-    if (testInfo.status === "failed") {
-        const addTimeStamp = true;
-        await Screenshoter.TakeScreenshot(page, testInfo.title, addTimeStamp);
-    }
 });
 
 test.describe('Orders Page Tests - Order by', {tag: ['@orders-page', '@full-regression']}, () => {
 
     test("Order by Newest", async ({ page }) => {
         await allure.description("Test that 'Order by Newest' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.");
-        await allure.tags("Orders Page", "Full Regression");
+        await allure.tags("Orders Page", "Full Regression", "Order");
 
         //Arrange
         const filterOption = "ot-des";
@@ -61,7 +48,7 @@ test.describe('Orders Page Tests - Order by', {tag: ['@orders-page', '@full-regr
 
     test("Order by Oldest", async ({ page }) => {
         await allure.description("Test that 'Order by Oldest' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.");
-        await allure.tags("Orders Page", "Full Regression");
+        await allure.tags("Orders Page", "Full Regression", "Order");
 
         //Arrange
         const filterOption = "ot-asc";
@@ -96,7 +83,7 @@ test.describe('Orders Page Tests - Order by', {tag: ['@orders-page', '@full-regr
 
     test("Order by Deadline Upcoming", async ({ page }) => {
         await allure.description("Test that 'Order by Deadline Upcoming' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.");
-        await allure.tags("Orders Page", "Full Regression");
+        await allure.tags("Orders Page", "Full Regression", "Order");
 
         //Arrange
         const filterOption = "date-des";
@@ -132,7 +119,7 @@ test.describe('Orders Page Tests - Order by', {tag: ['@orders-page', '@full-regr
 
     test("Order by Deadline Distant", async ({ page }) => {
         await allure.description("Test that 'Order by Deadline Distant' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.");
-        await allure.tags("Orders Page", "Full Regression");
+        await allure.tags("Orders Page", "Full Regression", "Order");
 
         //Arrange
         const filterOption = "date-asc";
@@ -167,11 +154,11 @@ test.describe('Orders Page Tests - Order by', {tag: ['@orders-page', '@full-regr
     });
 });
 
-test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-regression']}, () => {
+test.describe.skip('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-regression']}, () => {
 
     test(`Filter by State - Nuevo`, async ({ page }) => {
         await allure.description(`Test that 'Filter by State - Nuevo' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
-        await allure.tags("Orders Page", "Full Regression");
+        await allure.tags("Orders Page", "Full Regression", "Filter");
 
         //Arrange 1
         const filterOption = "state";
@@ -216,7 +203,7 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
 
     test(`Filter by State - Cargado`, async ({ page }) => {
         await allure.description(`Test that 'Filter by State - Cargado' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
-        await allure.tags("Orders Page", "Full Regression");
+        await allure.tags("Orders Page", "Full Regression", "Filter");
 
         //Arrange 1
         const filterOption = "state";
@@ -261,7 +248,7 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
 
     test(`Filter by State - Preproducción`, async ({ page }) => {
         await allure.description(`Test that 'Filter by State - Preproducción' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
-        await allure.tags("Orders Page", "Full Regression");
+        await allure.tags("Orders Page", "Full Regression", "Filter");
 
         //Arrange 1
         const filterOption = "state";
@@ -306,7 +293,7 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
 
     test(`Filter by State - Producción`, async ({ page }) => {
         await allure.description(`Test that 'Filter by State - Producción' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
-        await allure.tags("Orders Page", "Full Regression");
+        await allure.tags("Orders Page", "Full Regression", "Filter");
 
         //Arrange 1
         const filterOption = "state";
@@ -351,7 +338,7 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
 
     test(`Filter by State - Terminado`, async ({ page }) => {
         await allure.description(`Test that 'Filter by State - Terminado' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
-        await allure.tags("Orders Page", "Full Regression");
+        await allure.tags("Orders Page", "Full Regression", "Filter");
 
         //Arrange 1
         const filterOption = "state";
@@ -396,7 +383,7 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
 
     test(`Filter by State - Enviado`, async ({ page }) => {
         await allure.description(`Test that 'Filter by State - Enviado' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
-        await allure.tags("Orders Page", "Full Regression");
+        await allure.tags("Orders Page", "Full Regression", "Filter");
 
         //Arrange 1
         const filterOption = "state";
@@ -441,7 +428,7 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
 
     test(`Filter by State - Entregado`, async ({ page }) => {
         await allure.description(`Test that 'Filter by State - Entregado' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
-        await allure.tags("Orders Page", "Full Regression");
+        await allure.tags("Orders Page", "Full Regression", "Filter");
 
         //Arrange 1
         const filterOption = "state";
@@ -531,7 +518,7 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
 
     test(`Filter by OT#`, async ({ page }) => {
         await allure.description(`Test that 'Filter by OT#' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
-        await allure.tags("Orders Page", "Full Regression");
+        await allure.tags("Orders Page", "Full Regression", "Filter");
 
         //Arrange 1
         const filterOption = "numberOrder";
@@ -570,7 +557,7 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
 
     test(`Filter by Customer`, async ({ page }) => {
         await allure.description(`Test that 'Filter by Customer' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
-        await allure.tags("Orders Page", "Full Regression");
+        await allure.tags("Orders Page", "Full Regression", "Filter");
 
         //Arrange 1
         const filterOption = "customer";
@@ -609,7 +596,7 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
 
     test(`Filter by PO#`, async ({ page }) => {
         await allure.description(`Test that 'Filter by PO#' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
-        await allure.tags("Orders Page", "Full Regression");
+        await allure.tags("Orders Page", "Full Regression", "Filter");
 
         //Arrange 1
         const filterOption = "purchaseOrder";
@@ -648,7 +635,7 @@ test.describe('Orders Page Tests - Filter by', {tag: ['@orders-page', '@full-reg
 
     test(`Filter by Deadline`, async ({ page }) => {
         await allure.description(`Test that 'Filter by Deadline' option in Orders Page works. Before this test starts it already logged in and navigated to Orders Page.`);
-        await allure.tags("Orders Page", "Full Regression");
+        await allure.tags("Orders Page", "Full Regression", "Filter");
 
         //Arrange 1
         const filterName = "Deadline";

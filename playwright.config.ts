@@ -25,7 +25,7 @@ export default defineConfig({
   //reporter: 'html',
   grep: testPlanFilter(),
   reporter: [
-    ["line"], 
+    ["list"], 
     [
       "allure-playwright",
       {
@@ -46,16 +46,26 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
 
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
 
   /* Configure projects for major browsers */
   projects: [
+    // Setup project
+    { name: 'setup', testMatch: /.*\.setup\.ts/ },
+
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+         ...devices['Desktop Chrome'],
+         storageState: 'playwright/.auth/user.json',
+      },
+      dependencies: ['setup'],         
     },
+      
 
     // {
     //   name: 'firefox',

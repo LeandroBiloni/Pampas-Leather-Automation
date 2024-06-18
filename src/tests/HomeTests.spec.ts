@@ -1,26 +1,13 @@
 import test, { expect } from "@playwright/test";
 import { allure } from "allure-playwright";
-import { LoginHelper } from "../helpers/LoginHelper";
-import { Screenshoter } from "../helpers/Screenshoter";
 import { ClientsPage } from "../pages/ClientsPage";
 import { HomePage } from "../pages/HomePage";
 import { OrdersPage } from "../pages/OrdersPage";
 import { ProductsPage } from "../pages/ProductsPage";
 
 test.beforeEach(async ({ page}) => {
-    const email = process.env.CORRECT_EMAIL as string;
-    const password = process.env.CORRECT_PASSWORD as string;
-    await LoginHelper.doLogin(email, password, page);
-
     const homePage = new HomePage(page);    
     await page.goto(homePage.getURL());
-});
-
-test.afterEach(async ({ page }, testInfo) => {
-    if (testInfo.status === "failed") {
-        const addTimeStamp = true;
-        await Screenshoter.TakeScreenshot(page, testInfo.title, addTimeStamp);
-    }
 });
 
 test.describe('Home Page Tests', {tag: ['@home-page', '@full-regression']}, () => {

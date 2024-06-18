@@ -1,15 +1,10 @@
 import test, { expect } from "@playwright/test";
 import { allure } from "allure-playwright";
-import { Screenshoter } from "../helpers/Screenshoter";
-import { LoginPage } from "../pages/LoginPage";
 import { HomePage } from "../pages/HomePage";
+import { LoginPage } from "../pages/LoginPage";
 
-test.afterEach(async ({ page }, testInfo) => {
-    if (testInfo.status === "failed") {
-        const addTimeStamp = true;
-        await Screenshoter.TakeScreenshot(page, testInfo.title, addTimeStamp);
-    }
-});
+//This line cleans the cookies stored in the setup so login functionality can be tested.
+test.use({ storageState: { cookies: [], origins: [] } });
 
 test.describe('Login Page Tests', {tag: ['@login-page', '@full-regression', '@smoke']}, () => {
     test('Correct Login', async ({ page }) => {
